@@ -101,6 +101,14 @@ section{padding-block:30px 6px}
 .maplab{font:600 11px var(--f-mono);letter-spacing:.14em;fill:#7f9ac0}
 .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .mapctl{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.mapctl[hidden],.gbox[hidden],.mapbox[hidden]{display:none}
+.gbox{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.gbox iframe{display:block;width:100%;height:420px;border:0}
+.gctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px;border-bottom:1px solid var(--line)}
+.gctl select{font:500 13px var(--f-body);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);max-width:100%}
+.gdays{display:flex;gap:6px;flex-wrap:wrap;padding:10px;border-top:1px solid var(--line);align-items:center}
+.gdays .lab{margin-right:4px}
+.gdays a.btn{text-decoration:none;display:inline-block}
 .switch{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mute);cursor:pointer}
 .switch input{width:18px;height:18px;accent-color:var(--c-stay)}
 .info{margin-top:10px;border:1px solid var(--line);border-radius:var(--r);padding:14px;background:#fff}
@@ -291,9 +299,19 @@ footer .src{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px}
   <div class="tabs" role="tablist" aria-label="地圖範圍">
     <button class="tab" role="tab" id="tab-r" aria-selected="true" type="button">道央全區</button>
     <button class="tab" role="tab" id="tab-c" aria-selected="false" type="button">札幌市中心</button>
+    <button class="tab" role="tab" id="tab-g" aria-selected="false" type="button">Google 地圖</button>
   </div>
   <div class="mapbox"><svg id="mapsvg" viewBox="0 0 600 518" role="group" aria-label="北海道行程地圖"></svg></div>
-  <div class="mapctl">
+  <div class="gbox" id="gbox" hidden>
+    <div class="gctl">
+      <label for="gSel" class="lab" style="margin:0">地點</label>
+      <select id="gSel"></select>
+      <a class="btn ghost" id="gOpen" href="#" target="_blank" rel="noopener" style="text-decoration:none">在 Google 地圖 App 開啟 ↗</a>
+    </div>
+    <iframe id="gFrame" title="Google 地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    <div class="gdays" id="gDays"></div>
+  </div>
+  <div class="mapctl" id="mapctl">
     <div class="legend" id="legend"></div>
     <label class="switch"><input type="checkbox" id="onlyDay">只標示目前選的那一天</label>
   </div>
@@ -599,8 +617,34 @@ function showInfo(k){
    <h3>${esc(p.n)}</h3><div class="meta">${p.lat.toFixed(4)}°N ${p.lng.toFixed(4)}°E</div><p>${esc(p.d)}</p>
    ${ls.length?`<div class="links">${ls.map(linkHTML).join('')}</div>`:''}`;
 }
-function setView(v){view=v;$('#tab-r').setAttribute('aria-selected',v==='r');$('#tab-c').setAttribute('aria-selected',v==='c');drawBase()}
-$('#tab-r').onclick=()=>setView('r');$('#tab-c').onclick=()=>setView('c');
+/* ---------- Google Maps (embed + 每日路線連結，免 API key) ---------- */
+const gKeys=Object.keys(P).filter(k=>!P[k].deco&&!P[k].jump);
+const gEmbed=k=>{const p=P[k];return `https://www.google.com/maps?q=${p.lat},${p.lng}(${encodeURIComponent(p.n)})&z=${p.m==='c'?16:14}&hl=zh-TW&output=embed`};
+const gPin=k=>`https://www.google.com/maps/search/?api=1&query=${P[k].lat},${P[k].lng}`;
+function gRoute(n){
+  const d=DAYS.find(x=>x.n===n);const ks=[];
+  for(const it of d.items){const k=it.p;if(P[k].deco||P[k].jump)continue;if(ks[ks.length-1]!==k)ks.push(k)}
+  const c=k=>`${P[k].lat},${P[k].lng}`;
+  if(ks.length<2)return gPin(ks[0]);
+  const mid=ks.slice(1,-1).slice(0,9).map(c).join('|');
+  return `https://www.google.com/maps/dir/?api=1&origin=${c(ks[0])}&destination=${c(ks[ks.length-1])}${mid?`&waypoints=${mid}`:''}&travelmode=transit`;
+}
+function gSelect(k){
+  $('#gSel').value=k;$('#gFrame').src=gEmbed(k);$('#gOpen').href=gPin(k);sel=k;showInfo(k);
+}
+(function initG(){
+  $('#gSel').innerHTML=Object.entries(CAT).map(([c,v])=>`<optgroup label="${v.n}">${gKeys.filter(k=>P[k].cat===c).map(k=>`<option value="${k}">${esc(P[k].n)}</option>`).join('')}</optgroup>`).join('');
+  $('#gSel').onchange=e=>gSelect(e.target.value);
+  $('#gDays').innerHTML='<span class="lab">每日路線（大眾運輸）</span>'+DAYS.map(d=>`<a class="btn ghost" href="${esc(gRoute(d.n))}" target="_blank" rel="noopener">D${d.n} ${esc(d.date)} ↗</a>`).join('');
+})();
+function setView(v){
+  view=v;
+  for(const t of ['r','c','g'])$('#tab-'+t).setAttribute('aria-selected',v===t);
+  const g=v==='g';
+  $('#mapsvg').parentElement.hidden=g;$('#mapctl').hidden=g;$('#gbox').hidden=!g;
+  if(g){gSelect(sel&&gKeys.includes(sel)?sel:'sst')}else drawBase();
+}
+$('#tab-r').onclick=()=>setView('r');$('#tab-c').onclick=()=>setView('c');$('#tab-g').onclick=()=>setView('g');
 $('#onlyDay').onchange=drawBase;
 $('#legend').innerHTML=Object.entries(CAT).map(([k,c])=>`<button type="button" class="chip" aria-pressed="true" data-c="${k}"><span class="sw" style="background:${c.c};${k==='stay'?'border-radius:3px':''}"></span>${c.n}</button>`).join('');
 $('#legend').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const k=b.dataset.c;catOn[k]=!catOn[k];b.setAttribute('aria-pressed',catOn[k]);drawBase()});
