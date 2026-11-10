@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>出發前要決定的事｜北海道 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* 樣式沿用 index.html，白底資料表加一點全像閃光。這一頁的閃光只用在標題和選中的選項。 */
+:root{
+  --paper:#ffffff;
+  --ink:#1c2140;
+  --mute:#646b8a;
+  --line:#e3e6f1;
+  --frost:#eef3fb;
+  --c-sight:#2f6fd6;
+  --c-food:#e8604c;
+  --c-stay:#8a5cf0;
+  --c-warn:#b7791f;
+  --c-ok:#1f8a5b;
+  --holo:linear-gradient(100deg,#ff5fa2 0%,#b78bff 38%,#5fd0ea 72%,#7ef0c4 100%);
+  --f-disp:"Unbounded","Noto Sans TC",system-ui,sans-serif;
+  --f-han:"LXGW WenKai TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:56px}
+:root[data-motion="reduce"]{scroll-behavior:auto}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;margin:0;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:var(--c-sight)}
+:focus-visible{outline:2.5px solid var(--c-stay);outline-offset:2px;border-radius:6px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+.lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--mute)}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:10px;padding-block:8px}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;color:var(--ink);font-size:13.5px;font-weight:500;padding:6px 11px;border-radius:999px}
+.nav a:hover{background:var(--frost)}
+.nav a.back{color:var(--mute)}
+.motion{flex:none;font:600 11.5px/1 var(--f-body);color:var(--mute);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 10px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.motion .dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.motion[aria-pressed="true"] .dot{background:var(--c-ok)}
+
+/* hero */
+.hero{border-bottom:1px solid var(--line);background:linear-gradient(#eef3fb,#fff 70%)}
+.hero .wrap{padding-block:26px 22px;display:grid;gap:14px}
+.hero h1{font-family:var(--f-disp);font-weight:800;font-size:clamp(34px,9vw,58px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.holo{background:var(--holo);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .han{font-family:var(--f-han);font-size:clamp(21px,5.4vw,28px);font-weight:700;line-height:1.3}
+.hero p{margin:0;color:var(--mute);max-width:34em}
+.spec{display:grid;grid-template-columns:minmax(0,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.spec div{padding:10px 12px;border-top:1px solid var(--line);min-width:0}
+.spec div:first-child{border-top:0}
+.spec b{display:block;font-size:15px;font-weight:700}
+.spec span{font-size:12.5px;color:var(--mute)}
+@media(min-width:620px){.spec{grid-template-columns:repeat(3,minmax(0,1fr))}.spec div{border-top:0;border-right:1px solid var(--line)}.spec div:last-child{border-right:0}}
+.status{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;font-weight:500;border-radius:999px;padding:3px 10px;border:1px solid var(--line);background:#fff;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--c-warn);font-style:normal;flex:none}
+.pill.ok i{background:var(--c-ok)}
+.pill.risk i{background:var(--c-food)}
+.pill.wait i{background:var(--line)}
+
+/* sections */
+section{padding-block:30px 6px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.sh h2{font-family:var(--f-han);font-size:26px;font-weight:700;line-height:1.2}
+.note{font-size:13px;color:var(--mute)}
+.btn{font:600 14px var(--f-body);border:0;border-radius:10px;padding:10px 14px;background:var(--ink);color:#fff;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--mute);border:1px solid var(--line);font-size:12.5px;padding:6px 10px}
+.btn.big{font-size:15px;padding:12px 18px}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tab{font:500 13px/1 var(--f-body);border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.tab[aria-selected="true"],.tab[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab .cnt{font:600 11px var(--f-mono);opacity:.7}
+.empty{font-size:13.5px;color:var(--mute);padding:12px;border-radius:10px;background:var(--frost)}
+.alert{border-radius:10px;background:#fff7e8;color:#7a4f0e;padding:10px 12px;font-size:13.5px}
+
+/* questions */
+.grp{display:flex;align-items:center;gap:10px;font:700 13px var(--f-body);color:var(--mute);margin:22px 0 10px}
+.grp::after{content:"";flex:1;height:1px;background:var(--line)}
+.grp:first-child{margin-top:0}
+.q{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:16px;min-width:0;scroll-margin-top:64px}
+.q + .q{margin-top:12px}
+.q-hd{display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.q-hd h4{font-family:var(--f-han);font-size:21px;font-weight:700;line-height:1.3}
+.kind{flex:none;font:600 11px var(--f-mono);color:var(--mute);white-space:nowrap}
+.q.done .kind{color:var(--c-ok)}
+.why{margin:6px 0 12px;color:#3d4363;font-size:14px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative;font:500 14px/1.35 var(--f-body);text-align:left;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:9px 13px;cursor:pointer;min-height:44px;display:inline-flex;flex-direction:column;justify-content:center;max-width:100%}
+.opt small{font-size:12px;color:var(--mute);font-weight:400}
+.opt:hover{border-color:#c5cbe0}
+.opt[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:transparent}
+.opt[aria-pressed="true"] small{color:#c9cdf0}
+.opt[aria-pressed="true"]::after{content:"";position:absolute;inset:-2px;border-radius:14px;padding:2px;background:var(--holo);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+@keyframes chipPop{0%{transform:scale(1)}40%{transform:scale(1.06)}70%{transform:scale(.98)}100%{transform:scale(1)}}
+.opt.pop{animation:chipPop .4s cubic-bezier(.3,1.6,.5,1)}
+:root[data-motion="reduce"] *,:root[data-motion="reduce"] *::before,:root[data-motion="reduce"] *::after{animation:none!important;transition:none!important}
+.sug{margin:12px 0 0;font-size:13.5px;background:var(--frost);border-radius:10px;padding:9px 11px;color:#2c3257}
+.sug b{font-weight:700;margin-right:8px;color:var(--c-stay)}
+.facts{margin-top:10px}
+.facts summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--c-sight);list-style:none;display:inline-flex;align-items:center;gap:6px;padding:4px 0}
+.facts summary::-webkit-details-marker{display:none}
+.facts summary::before{content:"›";font-family:var(--f-mono);transition:transform .2s;display:inline-block}
+.facts[open] summary::before{transform:rotate(90deg)}
+.facts ul{margin:6px 0 0;padding-left:18px;font-size:13.5px;color:#3d4363}
+.facts li{margin:5px 0}
+.facts li a{white-space:nowrap;font-size:12.5px}
+.memo{display:grid;gap:4px;margin-top:12px;font-size:12.5px;color:var(--mute)}
+.memo input,.send input{font:15px var(--f-body);padding:9px 10px;border:1px solid var(--line);border-radius:10px;width:100%;background:#fff;color:var(--ink)}
+
+/* extras inside a question */
+.extra{margin-top:12px;border:1px dashed var(--line);border-radius:12px;padding:12px}
+.extra .tabs{margin-bottom:8px;align-items:center}
+.extra .tabs .lab{letter-spacing:0;font-family:var(--f-body);font-size:12.5px;margin-right:2px}
+.extra .tab{padding:6px 10px;font-size:12.5px}
+.plan{list-style:none;margin:0;padding:0;display:grid}
+.plan li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;padding:7px 0;border-top:1px dashed var(--line);font-size:13.5px}
+.plan li:first-child{border-top:0}
+.plan time{font:600 12.5px/1.6 var(--f-mono);color:var(--mute)}
+.plan small{display:block;color:var(--mute);font-size:12px}
+.cost{font-size:13.5px}
+.cr{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;padding:7px 0;border-top:1px dashed var(--line)}
+.cr:first-child{border-top:0}
+.cr .n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.cr small{grid-column:1/-1;color:var(--mute);font-size:12px;line-height:1.5}
+.cr.sum{font-weight:700;border-top:1px solid var(--ink)}
+.cr.sum small{font-weight:400}
+
+/* send */
+.send{border:1px solid var(--ink);border-radius:var(--r);padding:16px;margin-top:18px;display:grid;gap:10px;scroll-margin-top:64px}
+.send h3{font-family:var(--f-han);font-size:21px}
+.send label{display:grid;gap:4px;font-size:12.5px;color:var(--mute)}
+.send .row{display:flex;gap:8px;flex-wrap:wrap}
+.send p{margin:0}
+#sendMsg:empty{display:none}
+#sendMsg{font-size:13.5px;color:var(--c-ok);font-weight:600}
+#sendMsg.bad{color:#a8402f}
+
+/* dock */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:15;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.dock .wrap{display:flex;gap:12px;align-items:center;padding-block:10px}
+.meter{flex:1;min-width:0;display:grid;gap:5px}
+.meter span{font:600 12px var(--f-mono);color:var(--mute);font-variant-numeric:tabular-nums}
+.bar-p{height:6px;background:var(--line);position:relative;border-radius:999px;overflow:hidden}
+.bar-p i{position:absolute;inset:0 auto 0 0;background:var(--holo);transition:width .35s}
+
+/* board */
+.cmp{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;background:#fff}
+.cmp + .cmp{margin-top:8px}
+.cmp.diff{border-color:#f0c9c2;background:#fffaf9}
+.cmp-hd{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.cmp-hd b{font-size:15px}
+.who{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:8px;margin-top:8px;font-size:13.5px;align-items:start}
+.who dt{color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who dd{margin:0;display:flex;flex-wrap:wrap;gap:5px}
+.mini{font-size:12.5px;border:1px solid var(--line);border-radius:8px;padding:2px 8px;background:#fff}
+.mini.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.who em{font-style:normal;color:var(--mute);font-size:12.5px;flex-basis:100%}
+.cmp dl{margin:0}
+
+/* checks */
+.area{font:700 13px var(--f-body);color:var(--mute);margin:18px 0 8px}
+.chk{border:1px solid var(--line);border-radius:12px;background:#fff}
+.chk + .chk{margin-top:6px}
+.chk summary{list-style:none;cursor:pointer;padding:11px 12px;display:grid;grid-template-columns:10px minmax(0,1fr);gap:10px;align-items:start}
+.chk summary::-webkit-details-marker{display:none}
+.chk .dot{width:9px;height:9px;border-radius:50%;margin-top:8px;background:var(--c-warn)}
+.chk.ok .dot{background:var(--c-ok)}
+.chk.risk .dot{background:var(--c-food)}
+.chk .nm{font-weight:700;font-size:14.5px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.chk .nm span{font:600 11px var(--f-mono);color:var(--mute)}
+.chk.risk .nm span{color:#a8402f}
+.chk.ok .nm span{color:var(--c-ok)}
+.chk.wait .nm span{color:var(--c-warn)}
+.chk .pt{display:block;font-size:13.5px;color:#3d4363}
+.chk .body{padding:0 12px 12px 32px;font-size:13px;color:#3d4363}
+.chk .body ul{margin:0;padding-left:16px}
+.chk .body li{margin:3px 0}
+.chk .body a{font-size:12.5px}
+
+/* others */
+.bars{display:grid;gap:7px}
+.barrow{display:grid;grid-template-columns:8.5em minmax(0,1fr) 3.2em;gap:8px;align-items:center;font-size:13.5px}
+.barrow .tr{height:10px;background:var(--frost);border-radius:999px;overflow:hidden}
+.barrow .tr i{display:block;height:100%;background:var(--ink);border-radius:999px}
+.barrow.have .tr i{background:var(--c-sight)}
+.barrow .v{font:600 12px var(--f-mono);color:var(--mute);text-align:right;font-variant-numeric:tabular-nums}
+.grid{display:grid;gap:10px}
+@media(min-width:620px){.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:14px;background:#fff;min-width:0}
+.card h3{font-size:15.5px;font-weight:700;display:flex;gap:8px;align-items:center}
+.card h3 .sw{width:10px;height:10px;border-radius:50%;flex:none}
+.card ul{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:#3d4363}
+.card li{margin:5px 0}
+.card li a{font-size:12.5px;white-space:nowrap}
+.sub{font:700 13px var(--f-body);color:var(--mute);margin:20px 0 8px}
+.srcs{display:flex;flex-direction:column;gap:6px}
+.fold{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.fold + .fold{margin-top:6px}
+.fold .srcs{margin-top:8px}
+.pk ul,.pts{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:#3d4363}
+.pk li,.pts li{margin:7px 0}
+.pk li b,.pts li b{color:var(--ink);font-weight:700}
+.pk li .rs,.pts li .rs{display:block}
+.pk li a,.pts li a{white-space:nowrap;font-size:12.5px}
+.how{margin:0 0 4px;font-size:13.5px;color:var(--mute);max-width:46em}
+.lk{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0}
+.lk:hover{border-color:var(--c-sight);background:var(--frost)}
+.lk .t{flex:1;min-width:0;font-size:13.5px;line-height:1.35;overflow-wrap:anywhere}
+.lk .t small{display:block;color:var(--mute);font-size:11.5px}
+.lang{flex:none;font:600 10.5px/1 var(--f-mono);letter-spacing:.06em;border-radius:6px;padding:4px 6px;background:var(--frost);color:var(--c-sight)}
+.lang.yt{background:#fdeceb;color:#b4382a}
+.arrow{flex:none;color:var(--mute);font-family:var(--f-mono)}
+
+footer{padding-block:34px 20px;color:var(--mute);font-size:12.5px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <nav class="nav" aria-label="頁內導覽">
+      <a href="#ask">要決定的事</a><a href="#board">兩人對照</a><a href="#check">跑空檢查</a><a href="#others">別人怎麼玩</a><a class="back" href="index.html">回行程</a>
+    </nav>
+    <button class="motion" id="motionBtn" type="button" aria-pressed="false"><span class="dot"></span>減少動態</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1><span class="holo">DECIDE</span><br><span id="heroCount">0 / 0</span></h1>
+    <div class="han">日期還沒定，先把這幾件事喬好。</div>
+    <p>兩個人各自點選項，送出後下面會自動對照哪幾題一致、哪幾題要討論。每題都附查到的資料和來源。</p>
+    <div class="spec" aria-label="怎麼用">
+      <div><b>1　點選項</b><span>選了就存在這台裝置，可以分幾次答</span></div>
+      <div><b>2　送出回答</b><span>送到 GitHub，或複製文字貼給對方</span></div>
+      <div><b>3　看對照</b><span>兩人都送出後，自動比對每一題</span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="ask"><div class="wrap">
+  <div class="sh"><h2>要決定的事</h2><span class="note">這個網站是公開的，補充欄不要寫個資</span></div>
+  <div id="qWrap"></div>
+
+  <div class="send" id="send">
+    <h3>送出回答</h3>
+    <label for="who">你的名字或暱稱<input type="text" id="who" maxlength="20" autocomplete="off" placeholder="對方看得懂是誰就好"></label>
+    <div class="row">
+      <button class="btn big" type="button" id="toGh">送到 GitHub</button>
+      <button class="btn ghost" type="button" id="copyBtn">複製文字</button>
+    </div>
+    <p id="sendMsg" role="status" aria-live="polite"></p>
+    <p class="note">「送到 GitHub」會開一個填好內容的新 Issue，登入後按 Create 就完成。Issue 是公開的，名字用暱稱就好。想改答案再送一次，對照表只看最新的一筆。沒有 GitHub 帳號就用「複製文字」貼到聊天室。</p>
+  </div>
+</div></section>
+
+<section id="board"><div class="wrap">
+  <div class="sh"><h2>兩人對照</h2><button class="btn ghost" type="button" id="reload">重新讀取</button></div>
+  <div class="status" id="boardSum"></div>
+  <div id="boardList" style="margin-top:10px"></div>
+</div></section>
+
+<section id="check"><div class="wrap">
+  <div class="sh"><h2>跑空檢查</h2><span class="note" id="checkNote"></span></div>
+  <div class="tabs" id="checkFilter" role="group" aria-label="依狀態篩選"></div>
+  <div id="checkList"></div>
+</div></section>
+
+<section id="others"><div class="wrap">
+  <div class="sh"><h2>別人怎麼玩</h2><span class="note" id="othersNote"></span></div>
+  <div id="othersWrap"></div>
+</div></section>
+</main>
+
+<footer><div class="wrap" id="foot"></div></footer>
+
+<div class="dock" id="dock">
+  <div class="wrap">
+    <div class="meter"><span id="dockTxt">已回答 0 題</span><div class="bar-p"><i id="dockBar" style="width:0%"></i></div></div>
+    <a class="btn" href="#send" style="text-decoration:none">送出回答</a>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* =====================================================================
+   資料區。要改題目、選項、查證結果，改這一段就好
+   Q       問題包。o 是選項 [代號, 文字, 小字說明, 旗標]
+           旗標 solo:true 表示選了它就取消其他選項，any:true 表示「都可以」
+   PLAN    5 到 8 天的骨架
+   COST    7 天的費用概算
+   CHECKS  跑空檢查。s 可以是 ok（2027 已確認）、wait（2027 還沒公布）、risk（要注意）
+   SPOTS、PATTERNS、TIPS、PICKS、SOURCES  別人怎麼玩
+   ===================================================================== */
+const REPO='lichengchen527/hokkaido-2027';
+const TAG='[問題包回答]';
+const CHECKED='2026/11/10';
+const S=(t,u)=>({t,u});
+
+/*DATA-START*/
+const GF=(a,b,from)=>`https://www.google.com/travel/flights?q=Flights%20to%20CTS%20from%20${from||'TPE'}%20on%20${a}%20through%20${b}%20nonstop&curr=TWD&hl=zh-TW&gl=TW`;
+const U={
+  hyoto:'https://www.1000sai-chitose.or.jp/event/detail_1130.html',
+  liner:'https://www.sakkan.com/lp/hyoutou-bus/',
+  teikan:'https://teikan.chuo-bus.co.jp/course/19005',
+  qkamura:'https://www.qkamura.or.jp/shikotsu/oneday/',
+  usu:'https://usuzan.hokkaido.jp/ja/',
+  usuBus:'https://usuzan.hokkaido.jp/archives/blog/16358',
+  kisen:'https://www.toyakokisen.com/price/',
+  toyaEv:'https://www.laketoya.com/event/',
+  toyaFw:'https://www.laketoya.com/event/winterfireworks/',
+  donan:'https://www.donanbus.co.jp/map/sap_toyako/',
+  snow:'https://www.snowfes.com/faq/',
+  illumi:'https://www.sapporo.travel/white-illumination/',
+  moiwa:'https://mt-moiwa.jp/guide/',
+  koibito:'https://www.shiroikoibitopark.jp/facility/dream-kitchen.html',
+  aoao:'https://aoao-sapporo.blue/',
+  busStop:'https://www.city.sapporo.jp/sogokotsu/kasetsubus.html',
+  jma:'https://www.data.jma.go.jp/stats/etrn/view/nml_sfc_10d.php?prec_no=14&block_no=47412&year=&month=2&day=&view=',
+  nao:'https://eco.mtk.nao.ac.jp/koyomi/dni/2027/s0002.html',
+  otaru:'https://otaru.gr.jp/winter',
+  gas:'https://www.city.otaru.lg.jp/docs/2020100900633/',
+  masa:'https://masazushi.co.jp/shop-honten/',
+  ise:'https://www.isezushi.com/',
+  letao:'https://www.letao-brand.jp/shop/letao/',
+  cruise:'https://otaru.cc/timetable/',
+  jrInfo:'https://www3.jrhokkaido.co.jp/webunkou/',
+  jrRule:'https://www.jrhokkaido.co.jp/corporate/safe/04.html',
+  yukitouro:'https://jozankei.jp/event/yukitouro2027/',
+  kappa:'https://www.jotetsu.co.jp/bus/kappa_liner/',
+  futami:'https://jozankei.jp/news/futami-park-notice/',
+  jozanDay:'https://jozankei.jp/oneday/',
+  zoo:'https://www.city.asahikawa.hokkaido.jp/asahiyamazoo/news-blog/osirase/d082799.html',
+  zooBus:'https://teikan.chuo-bus.co.jp/course/18999',
+  veltra:'https://www.veltra.com/jp/japan/hokkaido/sapporo/a/199821',
+  pond:'https://www.biei-hokkaido.jp/ja/shirogane-blue-pond',
+  ice:'https://www.snowtomamu.jp/winter/icevillage/',
+  frost:'https://www.snowtomamu.jp/winter/frosttree/',
+  tomamuAcc:'https://www.snowtomamu.jp/winter/access/',
+  hkdAir:'https://www.hokkaido-airports.com/ja/hakodate/airport/time/inter/',
+  daruma:'https://sapporo-jingisukan.info/main',
+  garaku:'https://www.s-garaku.com/shoplist.php',
+  suage:'https://suage.info/stores/suage-plus/',
+  hanamaru:'https://www.sushi-hanamaru.com/store/details/s03.html',
+  toriton:'https://toriton-kita1.jp/shop/maruyama/',
+  saimi:'https://www.sapporo.travel/zh-tw/gourmet/shop/shop_339-4/',
+  nijo:'https://nijomarket.com/en/about_en/',
+  ctsRamen:'https://www.hokkaido-airports.com/ja/new-chitose/spend/shop/eat/?category=ramen',
+  ctsGift:'https://www.hokkaido-airports.com/ja/new-chitose/special/column/airport-souvenir/',
+  kayak:'https://www.tw.kayak.com/航班/台北-台灣桃園國際及其他機場-TPE/札幌-新千歲機場-CTS',
+  tvbs:'https://news.tvbs.com.tw/life/4044806',
+  tiger:'https://www.tigerairtw.com/zh-tw/ready-to-go/fees',
+  holiday:'https://www.ettoday.net/news/20260521/3169805.htm',
+  ptt_snowfes:'https://www.ptt.cc/bbs/Japan_Travel/M.1771328594.A.FD9.html',
+  ptt_gear:'https://www.ptt.cc/bbs/Japan_Travel/M.1767793580.A.11C.html',
+  ptt_toya:'https://www.ptt.cc/bbs/Japan_Travel/M.1735294976.A.123.html',
+  ptt_hyoto:'https://www.ptt.cc/bbs/Japan_Travel/M.1742107176.A.AA1.html',
+  ptt_tour:'https://www.ptt.cc/bbs/Japan_Travel/M.1767365564.A.727.html',
+  ptt_zoo:'https://www.ptt.cc/bbs/Japan_Travel/M.1772895402.A.700.html',
+  ptt_jr:'https://www.ptt.cc/bbs/Japan_Travel/M.1742351126.A.507.html',
+  dcard_nonokaze:'https://www.dcard.tw/f/travel/p/261084699',
+  dcard_tomamu:'https://www.dcard.tw/f/travel/p/257577466',
+  trav_cancel:'https://4travel.jp/travelogue/12032184',
+  vessel:'https://www.vessel-hotel.jp/inn/sapporo/breakfast/',
+  dormyBf:'https://dormy-hotels.com/dormyinn/hotels/premium_sapporo/breakfast/',
+  dormyFaq:'https://dormy-hotels.com/dormyinn/hotels/premium_sapporo/faq/',
+  grand:'https://grand1934.com/offer/accommodation/ikuradon/',
+  booking:'https://www.booking.com/searchresults.ja.html?ss=札幌&checkin=2027-02-16&checkout=2027-02-17&group_adults=2&no_rooms=1&selected_currency=JPY&nflt=tdb%3D2',
+  bookingToya:'https://www.booking.com/searchresults.ja.html?ss=洞爺湖温泉&checkin=2027-02-18&checkout=2027-02-19&group_adults=2&no_rooms=1&selected_currency=JPY&nflt=mealplan%3D9',
+  tax:'https://www.city.sapporo.jp/citytax/shukuhakuzei/index.html',
+  chikaho:'https://www.sapporo.travel/spot/facility/chikaho/',
+  nonokaze:'https://nonokaze-resort.com/access/',
+  bot:'https://rate.bot.com.tw/xrt?Lang=zh-TW',
+  yt_ponyo:'https://youtu.be/tw4bBJtuTkM',
+  yt_wen:'https://youtu.be/ImfflT8cdRQ',
+  yt_irene:'https://youtu.be/QwmeAFH1HTk',
+  yt_mal:'https://youtu.be/5224R_-XJPk',
+  yt_lun:'https://youtu.be/EjOiz1HNoXA',
+  yt_lunTour:'https://youtu.be/jMmM194Zeu0',
+  yt_mickey:'https://youtu.be/dqJLIwo6qMQ',
+  yt_news:'https://youtu.be/WNpsKpaGwLM',
+  yt_uching:'https://youtu.be/VqqcIMHz9Yw',
+  yt_maggie:'https://youtu.be/kLtLbsAmlh0',
+  yt_zz:'https://youtu.be/_WvSJriuLxQ',
+  yt_rong:'https://youtu.be/mzQoWBXs7Qg',
+  yt_slow:'https://youtu.be/WiABPT00LEE',
+  yt_sol:'https://youtu.be/1zFy0MDIwB4',
+  yt_lala:'https://youtu.be/U55jilj0Mk4',
+  yt_christy:'https://youtu.be/V6gETey3F4w',
+  yt_yoshida:'https://youtu.be/52_jpBmY3Dk',
+  yt_vanity:'https://youtu.be/wZ9CRCFK6xw',
+  yt_local:'https://youtu.be/E4dElwQUuCA',
+  dcard_otaru:'https://www.dcard.tw/f/japan_travel/p/261160412',
+  ptt_otaru:'https://www.ptt.cc/bbs/Japan_Travel/M.1764661987.A.EB6.html',
+  ptt_closed:'https://www.ptt.cc/bbs/Japan_Travel/M.1766732424.A.997.html',
+  ptt_jozan:'https://www.ptt.cc/bbs/Japan_Travel/M.1764234358.A.839.html',
+  bp_plan:'https://www.backpackers.com.tw/forum/showthread.php?t=10626706'
+};
+
+const Q=[
+ {id:'window',g:'時間',t:'什麼時候可以去？',multi:true,
+  why:'日期決定票價，也決定看不看得到冰濤祭。可以出發的週都勾起來。',
+  o:[['jan','1 月最後一週','1/25–1/31 出發'],['feb1','2 月第 1 週','2/1–2/7 出發，遇到春節和雪祭'],['feb2','2 月第 2 週','2/8–2/14 出發'],['feb3','2 月第 3 週','2/15–2/21 出發'],['feb4','2 月第 4 週','2/22 以後出發，冰濤祭 2/23 結束'],['any','都可以','看票價決定',{solo:true,any:true}]],
+  sug:'2/12 到 2/20 之間出發。票價是整段最低，冰濤祭還在，有珠山纜車這兩年的 2 月也都有開。',
+  facts:[
+   ['11/10 查的桃園直飛來回最低價。2/12 到 2/20 出發約 NT$14,400 起，2/5 到 2/11 出發要 NT$24,700 起，差了一萬',S('Google Flights',GF('2027-02-17','2027-02-23'))],
+   ['支笏湖冰濤祭 1/30（六）到 2/23（二）。門票平日 ¥1,000，週六日和假日 ¥3,000',S('千歳観光連盟',U.hyoto)],
+   ['札幌雪祭 2/4 到 2/11，雪像 2/12 早上就拆，之後大通公園沒有雪像也沒有燈飾',S('雪祭官網',U.snow)],
+   ['台灣春節連假 2/4 到 2/10，和雪祭、中國春節（2/5 到 2/13）疊在一起',S('行事曆報導',U.holiday)],
+   ['有珠山纜車這兩年都在 1 月中下旬停駛檢修（2026 是 1/12 到 1/31），2027 還沒公布。1 月底去要有沒開的準備',S('有珠山ロープウェイ',U.usu)],
+   ['小樽雪あかりの路 2/6 到 2/13。小樽運河的藍色燈飾只到 1/31',S('小樽観光協会',U.otaru)],
+   ['2 月中旬札幌平均零下 2.7 度、積雪約 87 公分，日落約 17:05',S('氣象廳平年值',U.jma)]
+  ],
+  memo:'一定不行的日子（可不填）'},
+
+ {id:'days',g:'時間',t:'可以去幾天？',multi:true,extra:'plan',
+  why:'能接受的天數都勾。點選項可以預覽那個版本怎麼排。',
+  o:[['5','5 天'],['6','6 天'],['7','7 天'],['8','8 天']],
+  sug:'7 天。四個固定項目都排得進去，冰濤祭當天去不成還能和小樽對調。',
+  facts:[
+   ['冰濤祭的札幌出發巴士團，2026/1/31 曾因高速公路封閉當天取消。所以冰濤祭後面最好留一天可以補',S('日文遊記',U.trav_cancel)],
+   ['酷航去程 17:00 才落地，但回程 18:15 才起飛，最後一天幾乎是完整的一天',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['遊記裡 5 天的人只玩札幌和小樽。8 天也有人整趟住同一間飯店',S('PTT 遊記',U.ptt_gear)]
+  ]},
+
+ {id:'ticket',g:'時間',t:'機票什麼時候買？',
+  why:'原本想等出發前一個月的便宜票。先看資料，再決定要不要賭。',
+  o:[['now','現在就買','鎖住目前的價格'],['target','到目標價就買','先訂一個數字，到了就下手'],['wait','等出發前一個月','賭它會降價'],['any','都可以','交給對方決定',{any:true}]],
+  sug:'訂一個目標價。2/12 到 2/20 出發，酷航來回低於 NT$15,000，或含托運的華航、星宇低於 NT$20,000 就買。現在的價格已經在這附近。',
+  facts:[
+   ['找不到資料支持「出發前一個月會出清」。KAYAK 同航線過去 12 個月的資料是，3 週前訂比最後 2 週內訂便宜約 13%',S('KAYAK',U.kayak)],
+   ['2 月是這條航線全年最貴的月份，平均來回 NT$22,982',S('KAYAK',U.kayak)],
+   ['2/15 到 2/21 的現價 NT$16,065，Google 的常見區間是 NT$16,000 到 33,000，已經在最底。過去一個月一路跌到接近 60 天低點',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['傳統航空的線上旅展快結束了。長榮到 11/15，華航到 11/21，星宇 85 折到 11/23',S('TVBS 報導',U.tvbs)],
+   ['燃油附加費 11/8 起連續第 4 次調漲',S('TVBS 報導',U.tvbs)],
+   ['還是想等的話，先在 Google Flights 對想要的日期開「追蹤票價」']
+  ]},
+
+ {id:'airport',g:'機票',t:'從哪個機場出發？',
+  why:'桃園班次多。高雄有直飛，但不是每天有。',
+  o:[['tpe','桃園'],['khh','高雄'],['any','都可以','哪邊便宜就哪邊',{any:true}]],
+  sug:'桃園。每天 8 到 9 班，同日期比高雄便宜將近一萬。',
+  facts:[
+   ['桃園直飛新千歲有 7 家航空，每天 8 到 9 班',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['高雄直飛只有虎航和泰國獅航，不是每天有。2/19 到 2/26 最低 NT$23,819，同日期桃園是 NT$14,402',S('Google Flights',GF('2027-02-19','2027-02-26','KHH'))],
+   ['台中只有星宇一班，2/15 到 2/21 來回 NT$36,410',S('Google Flights',GF('2027-02-15','2027-02-21','RMQ'))]
+  ]},
+
+ {id:'arrive',g:'機票',t:'去程想幾點落地？',
+  why:'早班機多半天但要半夜出門。中午的酷航最便宜，第一天只剩晚餐。',
+  o:[['am','上午落地','清晨 5 到 7 點起飛'],['pm','下午 1 到 2 點落地','早上 8 點半到 9 點半起飛'],['eve','傍晚 5 點落地','中午 12:15 起飛的酷航'],['any','都可以','看票價決定',{any:true}]],
+  sug:'在意預算就選酷航，回程 18:15 才飛，最後一天可以補回來。想第一天就開始玩，選 9 點多起飛的華航、長榮或星宇。',
+  facts:[
+   ['上午落地的班次。華航 05:00 起飛 09:40 到，泰越捷 05:40，長榮 06:15，虎航 06:20，泰亞航 07:15',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['下午落地的班次。華航 08:35 起飛 13:20 到，星宇 09:15 起飛 14:05 到，長榮 09:30 起飛 14:05 到',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['酷航 12:15 起飛 17:00 到，回程 18:15 起飛 22:05 到桃園',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['落地後入境領行李，再搭 JR 快速エアポート 37 分（¥1,230）才到札幌站',S('JR 北海道','https://www.jrhokkaido.co.jp/airport/')]
+  ]},
+
+ {id:'bag',g:'機票',t:'托運行李怎麼買？',
+  why:'廉航票價不含托運。冬天衣服厚，回程還有伴手禮。',
+  o:[['none','都不托運','只帶手提 10 kg'],['back','只買回程','去程手提，回程托運'],['both','來回都買 20 kg'],['fsc','選含托運的航空','華航、長榮、星宇含 23 kg'],['any','都可以','',{any:true}]],
+  sug:'至少回程要有托運。算總價時記得把托運費加進去再比。',
+  facts:[
+   ['酷航基本票和虎航都不含托運，手提 10 kg。華航、長榮、星宇最便宜的票種都含 1 件 23 kg',S('虎航費用表',U.tiger)],
+   ['虎航加購 20 kg 來回約 NT$2,004（訂票時一起買）。訂完才加或到機場才買會更貴',S('虎航費用表',U.tiger)],
+   ['虎航同一筆訂位可以共用額度。兩人合買一個 30 kg，每人來回約 NT$1,413',S('虎航費用表',U.tiger)],
+   ['抽樣 10 組日期，有 5 組是虎航加完托運後比華航或星宇還貴'],
+   ['酷航的加購價這次沒查到（官方費率表是 PDF）。訂票頁面會顯示']
+  ]},
+
+ {id:'budget',g:'預算',t:'每人預算上限大概多少？',extra:'cost',
+  why:'不含購物。有上限才能決定住哪個等級、要不要加一日團。',
+  o:[['b1','4 萬以下'],['b2','4 到 5 萬'],['b3','5 到 6 萬'],['b4','6 萬以上'],['any','還沒概念','看概算再說',{any:true}]],
+  sug:'7 天抓 5 萬上下比較寬鬆。4 萬以下要搭酷航、住最便宜的飯店，洞爺湖選平價旅館。',
+  facts:[
+   ['上面的概算是 7 天、2 月中旬、兩人同住的每人費用。日圓用 11/10 臺灣銀行現金賣出價 0.2108 換算',S('臺灣銀行牌告',U.bot)],
+   ['每多一天大約多 NT$2,500 到 3,900（一晚住宿加一天餐費）'],
+   ['雪祭那週的雙床房一晚 ¥40,700 起，是 2/16 平日（¥13,500 到 20,300）的 3 倍以上，機票也貴一萬',S('Booking 報價',U.booking)],
+   ['房價是 11/10 的報價，當天 Booking 有 11.11 促銷，之後可能回升',S('Booking 報價',U.booking)],
+   ['餐費是估算，沒有逐家查']
+  ]},
+
+ {id:'toya',g:'行程',t:'洞爺湖怎麼排？',
+  why:'現在的行程是當天來回。查證後發現單程要 2 小時 40 分，原本排的時間接不上。',
+  o:[['stay','住一晚','溫泉旅館含早晚餐'],['day','當天來回','省住宿費，車上 5 小時以上'],['skip','不去洞爺湖','泡湯改去定山溪'],['any','都可以','',{any:true}]],
+  sug:'住一晚。當天來回大半時間在車上，而且有珠山纜車的巴士末班 15:45 就沒了。',
+  facts:[
+   ['特急北斗 08:43 從札幌發，10:38 到洞爺，再接 11:00 的巴士，11:20 左右才到溫泉街。單程 ¥7,090',S('道南バス',U.donan)],
+   ['直達巴士 ¥3,700、約 2 小時 45 分，要預約。札幌 7:40、11:30 發，回程 9:50、12:50、17:10 發',S('道南バス',U.donan)],
+   ['從溫泉街去有珠山纜車的巴士班次很少，回程末班 15:45，錯過只能叫計程車',S('有珠山ロープウェイ',U.usuBus)],
+   ['遊覽船冬天每小時整點一班、約 45 分、¥1,800，不能上中島',S('洞爺湖汽船',U.kisen)],
+   ['燈飾隧道到 4/27 每晚 17:00 到 22:00。冬花火 2027 還沒公布（2026 是 2/3 到 2/12）',S('洞爺湖温泉観光協会',U.toyaEv)],
+   ['含早晚餐每人 ¥16,600（洞爺 湖畔亭）到 ¥34,300（乃の風リゾート），2/18 週四的報價',S('Booking 報價',U.bookingToya)],
+   ['乃の風 和 湖畔亭 有札幌站北口的接駁車，13:30 發、隔天 10:00 前後回，用官網訂房免費，要預約',S('乃の風リゾート',U.nonokaze)],
+   ['影片裡去洞爺湖的 5 組人全部住一晚，沒有人當天來回。遊記裡住過的人都說值得，當天來回的人只逛了溫泉街',S('PTT 遊記',U.ptt_toya)],
+   ['洞爺站到溫泉街的巴士只收現金（影片說明欄寫的，還沒向巴士公司確認）',S('波妞食境秀',U.yt_ponyo)]
+  ]},
+
+ {id:'shikotsu',g:'行程',t:'冰濤祭怎麼去？',
+  why:'兩種走法都要先預約。差別在能待多久。',
+  o:[['liner','BLUE LINER','自己搭 JR 到千歲再轉接駁車'],['tour','札幌出發的巴士團','不用轉車，會場停 1 小時 45 分'],['any','都可以','',{any:true}]],
+  sug:'BLUE LINER。白天的藍冰和 16:30 以後的點燈都看得到，回程班次也多。',
+  facts:[
+   ['BLUE LINER 已開放預約。JR 千歳駅東口上車，單程 ¥2,000、約 45 分。前一天 20:30 截止，不能改班，取消不退',S('札幌観光バス',U.liner)],
+   ['BLUE LINER 回程有 18:15、18:30、19:30、20:30。20:30 那班只到千歳駅',S('札幌観光バス',U.liner)],
+   ['中央バス的巴士團 13:20 札幌駅發、19:51 回來，¥5,500 不含門票。會場只停 16:00 到 17:45，白天的藍冰只看得到半小時',S('北海道中央バス',U.teikan)],
+   ['會場沒有室內休息室。遊客中心 16:30 關，店家多半 17:00 收，日歸溫泉 15:00 結束而且週二三休',S('休暇村支笏湖',U.qkamura)],
+   ['門票現場買，沒有預售票。平日 ¥1,000，週六日和假日 ¥3,000',S('千歳観光連盟',U.hyoto)],
+   ['這次看的影片和遊記裡，去冰濤祭的人都是跟團、租車或住湖邊，沒找到搭 BLUE LINER 的心得。上面的班次來自官方頁面',S('PTT 遊記',U.ptt_hyoto)]
+  ]},
+
+ {id:'module',g:'行程',t:'還想加哪些？',multi:true,
+  why:'這幾個都要多花一天，或多換一次飯店。有選才排。',
+  o:[['zoo','旭山動物園','一日團，看企鵝散步'],['tomamu','星野 TOMAMU','看冰村和霧冰'],['jozan','定山溪','當天來回泡湯'],['hako','函館','至少多住 1 晚'],['none','都不加','札幌慢慢逛',{solo:true}]],
+  sug:'7 天以內都不加。8 天的話，挑只去動物園的中央バス團，或把那天留給定山溪。',
+  facts:[
+   ['15 支行程影片裡有 8 支去了旭山動物園或美瑛，多半報札幌出發的一日團。遊記裡跟團的人嫌趕',S('PTT 遊記',U.ptt_zoo)],
+   ['旭山動物園冬期 10:30 到 15:30，¥1,000。企鵝散步 11:00 和 14:30，天候不好會取消',S('旭山動物園',U.zoo)],
+   ['只去動物園的中央バス團 ¥6,900 含門票，停 3 小時 5 分。加美瑛的團動物園只停約 90 分',S('北海道中央バス',U.zooBus)],
+   ['青い池冬天被雪蓋住，白天看不到藍色。遊記裡有一日團大雪天 20:30 到 22:00 才回到札幌',S('PTT 討論串',U.ptt_tour)],
+   ['TOMAMU 的 JR 單程 ¥5,880、約 1 小時 45 分。氷の教会 只到 2/14，2 月看到霧冰的機率 48%（上一季）',S('星野リゾート トマム',U.frost)],
+   ['定山溪搭かっぱライナー單程 ¥1,700，日歸溫泉 ¥1,200 到 1,500。雪灯路的神社會場只限住宿客，回程末班 17:15',S('定山渓観光協会',U.yukitouro)],
+   ['函館離札幌單程約 3 小時 50 分、¥9,770。函館機場有虎航和星宇直飛桃園，可以新千歲進、函館出（2027 的班表還沒公布）',S('函館空港',U.hkdAir)]
+  ]},
+
+ {id:'pace',g:'行程',t:'行程要排多滿？',
+  why:'雪地走路比地圖估的慢，天也黑得早。',
+  o:[['full','排滿','早出晚歸也沒關係'],['one','一天一個重點','其他時間隨意'],['slow','鬆一點','睡飽再出門'],['any','都可以','',{any:true}]],
+  sug:'一天一個重點。現在的第 2 天排了 6 站，雪地裡走不完。',
+  facts:[
+   ['遊記普遍說雪地步行要比地圖多抓三到五成時間，在外面走半小時就又累又凍',S('PTT 遊記',U.ptt_gear)],
+   ['2 月中旬 17:05 左右日落，藻岩山平日的免費接駁車 17:17 才有第一班',S('もいわ山ロープウェイ',U.moiwa)],
+   ['室內暖氣很強（20 到 26 度），外層要好穿脫',S('PTT 遊記',U.ptt_snowfes)]
+  ]},
+
+ {id:'food',g:'行程',t:'哪些一定要吃到？',multi:true,union:true,
+  why:'熱門店不是排隊就是抽號碼牌。先知道要吃什麼，才好排時間。',
+  o:[['jin','成吉思汗烤肉'],['curry','湯咖哩'],['ramen','味噌拉麵'],['kaiten','迴轉壽司'],['don','海鮮丼'],['otaru','小樽壽司'],['crab','螃蟹'],['parfait','夜パフェ','深夜聖代'],['sweets','甜點和咖啡廳'],['ikura','鮭魚卵早餐']],
+  sug:'挑最想吃的三四樣就好，其他看現場排隊狀況。',
+  facts:[
+   ['だるま 6 家店只有 7.4店 能訂位（預約費 ¥500）。19 到 20 點最常排隊，4.4店 11:30 就開',S('だるま',U.daruma)],
+   ['GARAKU 午晚分段、不定休、湯賣完就收。Suage+ 中間不休息，但只收現金和 PayPay',S('GARAKU',U.garaku)],
+   ['根室花まる ステラプレイス店 10:00 起可以先到店抽號，之後用手機看進度。トリトン 不能訂位，人多會提早收客',S('根室花まる',U.hanamaru)],
+   ['麺屋 彩未 週一休、每月另有 2 天不定休，晚上只開到 19:30',S('札幌市觀光網',U.saimi)],
+   ['小樽的政寿司本店每週三休，握り ¥4,180 起，建議先訂位',S('おたる政寿司',U.masa)],
+   ['二条市場大約 7:00 到 17:00，下午去多數店已經收了',S('二条市場',U.nijo)]
+  ]},
+
+ {id:'hotel',g:'住宿',t:'札幌的飯店怎麼訂？',
+  why:'中間去洞爺湖住一晚的話，札幌會被切成前後兩段。',
+  o:[['same','前後住同一家','洞爺湖那晚寄放大行李'],['two','前後換兩家','其中一段住早餐有名的'],['cheap','便宜優先','哪家便宜住哪家'],['any','都可以','',{any:true}]],
+  sug:'前後訂同一家，下訂前先寫信問能不能寄放行李過夜。想吃鮭魚卵早餐，就把其中一段換成 ベッセルイン 或 ドーミーイン。',
+  facts:[
+   ['ドーミーインPREMIUM札幌 的官方 FAQ 明寫，退房後過幾天再入住可以寄放行李。其他家沒寫，要先問',S('ドーミーイン FAQ',U.dormyFaq)],
+   ['鮭魚卵早餐，官方寫得最清楚的是 ベッセルイン札幌中島公園（住客 ¥3,200，外來 ¥5,000）',S('ベッセルイン',U.vessel)],
+   ['ドーミーインPREMIUM札幌 也能自己盛鮭魚卵做海鮮丼，¥3,000，只限住客。兩家官方都沒寫是不是無限量',S('ドーミーイン',U.dormyBf)],
+   ['札幌グランドホテル 是指定方案每人一碗小的鮭魚卵丼，不是吃到飽。センチュリーロイヤルホテル 已經閉館',S('札幌グランドホテル',U.grand)],
+   ['ベッセルイン 2/16 的雙床房一晚 ¥20,300，同一天最便宜的飯店是 ¥13,500',S('Booking 報價',U.booking)],
+   ['多數方案標示可以免費取消，先訂起來等機票是可行的。最便宜的方案常常不能退，下訂前看清楚',S('Booking 報價',U.booking)],
+   ['住宿稅另計。札幌每人每晚 ¥300，洞爺湖 ¥400，兩人 6 晚約 ¥3,800',S('札幌市',U.tax)]
+  ]},
+
+ {id:'area',g:'住宿',t:'札幌想住哪一區？',
+  why:'去小樽、洞爺湖、機場都從札幌站搭 JR。晚餐和逛街在大通到薄野。',
+  o:[['eki','札幌站周邊'],['odori','大通'],['susukino','薄野'],['nakajima','中島公園'],['any','都可以','',{any:true}]],
+  sug:'札幌站到大通之間。要搭 JR 的日子多，下雪天可以走地下街。',
+  facts:[
+   ['2/16 雙床房每晚的樣本價。薄野約 ¥12,400 到 15,100，大通 ¥13,500 到 18,000，中島公園 ¥16,500 到 20,300，札幌站周邊 ¥18,800 到 21,700。只有十幾家，僅供參考',S('Booking 報價',U.booking)],
+   ['JR 札幌站到大通走地下步道約 10 分鐘，一路可以走地下到薄野',S('札幌市觀光網',U.chikaho)],
+   ['洞爺湖旅館的接駁車、冰濤祭和旭山動物園的定期觀光巴士，都在札幌站北口集合',S('札幌市',U.busStop)],
+   ['遊記裡為了省錢住離地鐵遠的人，事後都建議住地鐵站旁。積雪時走路時間會多三到五成',S('PTT 遊記',U.ptt_gear)]
+  ]},
+
+ {id:'site',g:'網站',t:'這個網站接下來想加什麼？',multi:true,union:true,
+  why:'勾了的會排進下一次更新。',
+  o:[['fix','更新現有行程','照查證結果改時間和票價'],['ver','5 到 8 天版本切換'],['cost','費用試算'],['remind','預約期限提醒'],['backup','下雪時的備案'],['food','餐廳清單'],['rules','AI 協作規則檔','AGENTS.md'],['ok','現在這樣就好','',{solo:true}]],
+  facts:[
+   ['查證時發現現有行程有十幾處要更新。例如北斗是 08:43 發，札幌到小樽不分車種都是 ¥800，白い恋人パーク冬季開到 19:00'],
+   ['AI 協作規則檔是給 Claude 和 Codex 看的，只寫改網站的規則（例如票價要附來源），沒有個資']
+  ]}
+];
+
+const PLAN={
+ 5:[['落地，進札幌','住札幌。傍晚才到的話只排晚餐'],['去洞爺湖','住洞爺湖溫泉。午後有珠山纜車，晚上泡湯'],['洞爺湖回札幌，下午小樽','住札幌。小樽只剩半天，店家 18:00 關'],['支笏湖冰濤祭','住札幌。沒有補考日，當天取消就看不到'],['回程','機場國內線買伴手禮，再去國際線報到']],
+ 6:[['落地，進札幌','住札幌。傍晚才到的話只排晚餐'],['去洞爺湖','住洞爺湖溫泉。午後有珠山纜車，晚上泡湯'],['洞爺湖回札幌','住札幌。下午去白い恋人パーク或上藻岩山'],['支笏湖冰濤祭','住札幌。下午到會場，看完點燈再回來'],['小樽','住札幌。冰濤祭去不成就和這天對調'],['回程','機場國內線買伴手禮，再去國際線報到']],
+ 7:[['落地，進札幌','住札幌。傍晚才到的話只排晚餐'],['札幌市區','住札幌。白い恋人パーク、円山，傍晚上藻岩山'],['去洞爺湖','住洞爺湖溫泉。午後有珠山纜車，晚上泡湯'],['洞爺湖回札幌','住札幌。早上遊覽船或湖邊散步，下午回來'],['支笏湖冰濤祭','住札幌。下午到會場，看完點燈再回來'],['小樽','住札幌。冰濤祭去不成就和這天對調'],['回程','機場國內線買伴手禮，再去國際線報到']],
+ 8:[['落地，進札幌','住札幌。傍晚才到的話只排晚餐'],['札幌市區','住札幌。白い恋人パーク、円山，傍晚上藻岩山'],['去洞爺湖','住洞爺湖溫泉。午後有珠山纜車，晚上泡湯'],['洞爺湖回札幌','住札幌。早上遊覽船或湖邊散步，下午回來'],['支笏湖冰濤祭','住札幌。下午到會場，看完點燈再回來'],['小樽','住札幌。南小樽下車一路逛到運河'],['自選日','住札幌。旭山動物園或定山溪，也當冰濤祭的補考日'],['回程','機場國內線買伴手禮，再去國際線報到']]
+};
+
+const COST=[
+ ['機票，含 20 kg 托運','NT$16,400–21,300','2/12 到 2/23 出發。低的是酷航加托運（托運費用虎航的價格估），高的是華航'],
+ ['札幌住宿 5 晚','NT$7,100–10,700','雙床房每晚 ¥13,500 到 20,300，兩人分攤'],
+ ['洞爺湖溫泉旅館 1 晚','NT$3,500–7,200','含早晚餐，每人 ¥16,600 到 34,300'],
+ ['交通','NT$4,300–5,700','機場來回、洞爺湖、小樽、支笏湖、市區。洞爺湖搭直達巴士比較省'],
+ ['門票','NT$2,200','冰濤祭、白い恋人パーク、藻岩山、有珠山、遊覽船、AOAO 全去'],
+ ['餐費','NT$6,300–10,100','估算，每天 ¥5,000 到 8,000，共 6 天'],
+ ['住宿稅','NT$400','札幌每人每晚 ¥300，洞爺湖 ¥400'],
+ ['7 天合計','NT$40,200–57,700','每人，不含購物',true]
+];
+
+const CHECKS=[
+ {a:'支笏湖',n:'千歳・支笏湖氷濤まつり',s:'ok',p:'1/30（六）到 2/23（二），10:00–20:00，16:30 點燈',d:['門票平日 ¥1,000，週六日和假日 ¥3,000。2/11 和 2/23 算假日','現場買，沒有預售票','會場內沒有室內休息室'],u:U.hyoto,src:'千歳観光連盟'},
+ {a:'支笏湖',n:'氷濤 BLUE LINER',s:'ok',p:'已開放預約。前一天 20:30 截止，不能改班，取消不退',d:['JR 千歳駅東口 7 番上車，13:20 或 14:20 發，約 45 分，單程 ¥2,000','回程 18:15、18:30、19:30、20:30。20:30 只到千歳駅，要回機場的末班是 19:30','觀光協會頁面列的班次比較少，以預約系統顯示的為準'],u:U.liner,src:'札幌観光バス'},
+ {a:'支笏湖',n:'點燈後沒有室內可待',s:'risk',p:'遊客中心 16:30 關，店家多半 17:00 收。回程班次先訂好',d:['休暇村日歸溫泉 15:00 結束，週二三公休','遊客中心冬季週二休','晚餐回千歲或札幌再吃'],u:U.qkamura,src:'休暇村支笏湖'},
+ {a:'支笏湖',n:'札幌出發的冰濤祭巴士團',s:'ok',p:'13:20 札幌駅發、19:51 回，¥5,500 不含門票。會場只停 16:00–17:45',d:['前一天 18:00 前沒人預約就停駛','塞車時停留時間會再縮短','2026/1/31 曾因高速公路封閉當天取消（遊記）'],u:U.teikan,src:'北海道中央バス'},
+ {a:'支笏湖',n:'路線巴士 空4',s:'wait',p:'冬季時刻官方頁讀不到。回程末班據說 17:45，只當去程或備案',d:['不用預約，新千歳空港和千歳駅前上車','12/11 改冬季時刻後要再查一次'],u:'https://www.chuo-bus.co.jp/',src:'北海道中央バス'},
+
+ {a:'洞爺湖',n:'有珠山ロープウェイ',s:'risk',p:'每年冬天停駛檢修。2026 是 1/12–1/31，2027 還沒公布',d:['2025 是 1/11–1/24。這兩年的 2 月都有開','公告都在開始前幾天才貼，出發前一週看官方部落格','來回 ¥2,000。12 月的下山末班是 16:00，1 月以後的時刻還沒出'],u:U.usu,src:'有珠山ロープウェイ'},
+ {a:'洞爺湖',n:'溫泉街到昭和新山的巴士',s:'risk',p:'班次很少，回程末班 15:45，錯過只能叫計程車',d:['去程 9:15、10:15、11:20、12:50、13:25 等（官方 FAQ 2026/3 版）','¥400。1 到 2 月是否同樣時刻還沒確認','纜車售票處可以免費代叫計程車'],u:U.usuBus,src:'有珠山ロープウェイ'},
+ {a:'洞爺湖',n:'札幌到洞爺湖的交通',s:'ok',p:'北斗 08:43 發，接 11:00 巴士，約 2 小時 40 分、¥7,090。直達巴士 ¥3,700 要預約',d:['北斗 ¥6,690，全車指定席。洞爺駅到溫泉街巴士 ¥400、約 20 分','直達巴士札幌駅前 7:40、11:30、14:10、16:10 發，約 2 小時 45 分','直達巴士回程 7:10、9:50、12:50、17:10 發。發車 2 小時前截止預約','時刻是現行版本，出發前再對一次'],u:U.donan,src:'道南バス'},
+ {a:'洞爺湖',n:'洞爺湖汽船',s:'ok',p:'冬期 9:00–16:00 每小時整點一班，約 45 分，¥1,800。冬天不能上中島',d:['強風大雪當天可能停航，官網會公告'],u:U.kisen,src:'洞爺湖汽船'},
+ {a:'洞爺湖',n:'洞爺湖温泉冬花火',s:'wait',p:'2027 還沒公布。2026 是 2/3–2/12 每晚 20:30',d:['2 月中旬以後去，照去年的日期就看不到'],u:U.toyaFw,src:'洞爺湖温泉観光協会'},
+ {a:'洞爺湖',n:'イルミネーショントンネル',s:'ok',p:'到 2027/4/27，每晚 17:00–22:00，哪天去都有',d:['在溫泉街中心的にぎわい広場'],u:U.toyaEv,src:'洞爺湖温泉観光協会'},
+
+ {a:'小樽',n:'壽司店週三公休',s:'risk',p:'政寿司本店每週三休，伊勢鮨每週三加第 1 到 3 個週二休。小樽不要排週三',d:['午餐 14:30 最後點餐，15:00 到 17:00 是空班','兩家都建議先訂位'],u:U.masa,src:'おたる政寿司'},
+ {a:'小樽',n:'堺町通的店 18:00 關',s:'ok',p:'LeTAO、オルゴール堂、かま栄 都開到 18:00，咖啡廳 17:30 最後點餐',d:['南小樽駅下車往運河方向逛，最後從小樽駅回札幌，不用走回頭路'],u:U.letao,src:'LeTAO'},
+ {a:'小樽',n:'運河的燈',s:'ok',p:'瓦斯燈每天日落到 24:00，倉庫打燈到 22:30',d:['藍色燈飾「青の運河」只到 1/31','雪あかりの路 2/6–2/13，時間還沒公布（2026 是 17:00–21:00）'],u:U.gas,src:'小樽市'},
+ {a:'小樽',n:'小樽運河クルーズ',s:'wait',p:'冬天照開，白天 ¥1,800、夜間 ¥2,000。2 月時刻表還沒出',d:['強風大雪會停航，當天早上 9:00 左右更新'],u:U.cruise,src:'小樽運河クルーズ'},
+ {a:'小樽',n:'JR 札幌到小樽',s:'ok',p:'單程 ¥800，快速約 34 到 41 分。不分車種同價',d:['指定席 uシート 加 ¥1,000'],u:'https://www.jrhokkaido.co.jp/airport/',src:'JR 北海道'},
+
+ {a:'札幌',n:'さっぽろ雪まつり',s:'ok',p:'2/4–2/11。雪像 2/12 早上就拆',d:['2 月中下旬的大通公園沒有雪像也沒有燈飾','還亮著的燈飾在札幌駅南口、アカプラ、南一条通（到 3/14）'],u:U.snow,src:'雪祭官網'},
+ {a:'札幌',n:'もいわ山ロープウェイ',s:'ok',p:'1 到 2 月正常營運。冬季 11:00–22:00，來回 ¥2,100',d:['年度檢修是 3/29–4/28，不影響','平日的免費接駁車 17:17 才有第一班，早到要走約 10 分鐘上坡','強風濃霧會停駛，出發前看官網的運行狀況'],u:U.moiwa,src:'もいわ山ロープウェイ'},
+ {a:'札幌',n:'白い恋人パーク',s:'ok',p:'年中無休。12 月到 3 月是 10:00–19:00，入館 ¥1,200',d:['畫餅乾 ¥1,500，可以當天買','2 月的場次 1/1 起開放網路預約'],u:U.koibito,src:'白い恋人パーク'},
+ {a:'札幌',n:'AOAO SAPPORO',s:'ok',p:'10:00–22:00，最後入館 21:00，¥2,200。適合當風雪天的備案',d:['在狸小路的 moyuk SAPPORO 裡'],u:U.aoao,src:'AOAO SAPPORO'},
+ {a:'札幌',n:'札幌站的巴士乘車處',s:'risk',p:'巴士總站關到 2028 年度，乘車處分散在車站四周',d:['定期觀光巴士（冰濤祭、旭山動物園）在北口','かっぱライナー在 27 番のりば','往洞爺湖的直達巴士在札幌駅前'],u:U.busStop,src:'札幌市'},
+ {a:'札幌',n:'大雪時的 JR',s:'risk',p:'大雪會減班或停駛。出門前和回程前各看一次運行情報',d:['大型風雪會在前兩天預告、前一天公告停駛區間','突發的暴風雪不會預告','不只大雪。2025/3/19 號誌故障，小樽到機場全線停駛，計程車報價 ¥35,000（PTT 現場回報）'],u:U.jrInfo,src:'JR 北海道'},
+
+ {a:'餐廳',n:'成吉思汗 だるま',s:'ok',p:'全店無休。只有 7.4店 能訂位，19 到 20 點最常排隊',d:['4.4店 11:30 就開，5.5店 位子最多（32 席）','本店只有 14 席'],u:U.daruma,src:'だるま'},
+ {a:'餐廳',n:'湯咖哩 GARAKU、Suage+',s:'risk',p:'GARAKU 不定休、湯賣完就收。Suage+ 只收現金和 PayPay',d:['GARAKU 本店午晚分段，15:30 到 17:00 休息','GARAKU 本店現址在二条市場東側，和舊資料不同','Suage+ 沒有定休、中間不休息，最不容易撲空'],u:U.garaku,src:'GARAKU'},
+ {a:'餐廳',n:'迴轉壽司',s:'ok',p:'根室花まる 10:00 起可先抽號再去逛。トリトン 不能訂位，人多會提早收客',d:['花まる 叫號後 15 分鐘內沒到就取消','トリトン 円山店、北8条光星店 都是 11:00–22:00'],u:U.hanamaru,src:'根室花まる'},
+ {a:'餐廳',n:'麺屋 彩未',s:'risk',p:'週一休，每月另有 2 天不定休，晚上只開到 19:30',d:['すみれ すすきの店 只有晚上開，不能刷卡'],u:U.saimi,src:'札幌市觀光網'},
+ {a:'餐廳',n:'二条市場',s:'risk',p:'大約 7:00–17:00，下午去多數店已經收了',d:['遊記評價兩極，人多價高。早上去'],u:U.nijo,src:'二条市場'},
+
+ {a:'機場',n:'新千歳空港的拉麵和伴手禮',s:'risk',p:'都在國內線、安檢前。要先吃先買，再去國際線報到',d:['拉麵道場在國內線 3 樓，多數 9:00–21:00','國際線管制區內只有 2 家拉麵，冬季 15:00 到 15:30 就收','伴手禮街在國內線 2 樓，多數 8:00–20:00，ROYCE\' 19:30 關'],u:U.ctsRamen,src:'新千歳空港'},
+
+ {a:'定山溪',n:'新・雪灯路 2027',s:'risk',p:'1/20–2/28 的 18:00–21:30。神社會場只限住宿客，當天來回看不到',d:['かっぱライナー回程末班 17:15','二見吊橋因公園施工，這個冬天去不了'],u:U.yukitouro,src:'定山渓観光協会'},
+ {a:'定山溪',n:'かっぱライナー号',s:'ok',p:'預約制，前一天 17:00 截止。單程 ¥1,700，線上買 ¥1,460',d:['札幌駅 27 番のりば上車，約 60 分','班次這一年改過幾次，以訂位頁為準','日歸溫泉 ¥1,200 到 1,500'],u:U.kappa,src:'じょうてつ'},
+
+ {a:'旭山・美瑛',n:'旭山動物園',s:'ok',p:'冬期 10:30–15:30，最後入園 15:00，¥1,000。12/30–1/1 休',d:['企鵝散步 11:00 和 14:30，天候或積雪不佳會取消','2/5–2/7 有夜間開園到 20:30'],u:U.zoo,src:'旭山動物園'},
+ {a:'旭山・美瑛',n:'札幌出發的一日團',s:'ok',p:'只去動物園的中央バス團 ¥6,900 含門票，停 3 小時 5 分',d:['加美瑛的團（VELTRA ¥7,500）動物園只停約 90 分','高速公路因雪封閉時當天停駛','自己搭 JR 來回車票就要 ¥10,880'],u:U.zooBus,src:'北海道中央バス'},
+ {a:'旭山・美瑛',n:'青い池',s:'risk',p:'冬天池面被雪蓋住，白天看不到藍色',d:['點燈 2 月從 17:30 開始。多數一日團白天就到，想看點燈要挑有標明的團'],u:U.pond,src:'美瑛町観光協会'},
+
+ {a:'TOMAMU',n:'アイスヴィレッジ',s:'risk',p:'12/20–3/10 的 17:00–22:00。氷の教会 只到 2/14，氷のホテル 只到 2/20',d:['入場 ¥600，住客免費','當天來回的回程末班 20:20，教會 20:30 才開放參觀，看不到'],u:U.ice,src:'星野リゾート トマム'},
+ {a:'TOMAMU',n:'霧氷テラス',s:'risk',p:'2 月看得到霧冰的機率 48%（上一季）。纜車來回 ¥2,500',d:['上山末班 15:30','天候不佳會停駛，到場才知道的例子不少（遊記）'],u:U.frost,src:'星野リゾート トマム'},
+ {a:'TOMAMU',n:'JR トマム駅',s:'risk',p:'車站買不到票，回程票要先買好。單程 ¥5,880',d:['札幌 07:58 發、09:42 到。回程 18:44 或 20:20（末班）','全車指定席'],u:U.tomamuAcc,src:'星野リゾート トマム'}
+];
+
+const SPOTS=[
+ ['小樽',18,true],['美瑛',11,false],['旭山動物園',9,false],['洞爺湖',7,true],['北海道大学',7,false],
+ ['函館',6,false],['二条市場',5,true],['北海道神宮、円山',5,false],['白い恋人パーク',4,true],['星野 TOMAMU',4,false],
+ ['藻岩山',2,true],['定山溪',2,false],['登別',2,false],['支笏湖冰濤祭',1,true],['有珠山纜車',1,true]
+];
+const SPOT_TOTAL=35;
+const OTHERS_NOTE='15 支影片、20 篇遊記';
+const OTHERS_HOW='讀了 45 支影片和 22 篇遊記、討論串，統計用其中 15 支行程影片和 20 篇文章。以 2024 年 12 月以後、冬天去、不開車的為主。業配導購、滑雪為主、看不出作者和日期的沒有算。影片只看了標題、說明欄和章節，沒有看內容。';
+const PATTERNS=[
+ ['全部以札幌當基地。4 到 5 天的人整趟住札幌，其他地方當天來回',[S('綸 6Journal',U.yt_lun),S('PTT 遊記',U.ptt_gear)]],
+ ['6 到 8 天多半加一晚溫泉。洞爺湖或登別，也有人改在小樽住 2 晚',[S('波妞食境秀',U.yt_ponyo),S('i Maggie',U.yt_maggie),S('旅玩家 ZZ',U.yt_zz)]],
+ ['旭川、富良野、函館很少排過夜。有排的多半是 8 天以上的行程',[S('Sol Life',U.yt_sol),S('PTT 遊記',U.ptt_toya)]],
+ ['抵達日只排晚餐和散步。小樽放前半段，遠的地方放中段，最後一兩天回札幌採買'],
+ ['旭山動物園和美瑛靠一日團。沒開車的人多半從札幌報團',[S('宇慶',U.yt_uching),S('PTT 遊記',U.ptt_zoo)]],
+ ['去冰濤祭靠一日團、租車或住湖邊。沒找到自己搭車去的心得',[S('Irene麻糬',U.yt_irene),S('MAL 出走日記',U.yt_mal),S('PTT 遊記',U.ptt_hyoto)]]
+];
+const TIPS=[
+ ['室內暖氣很強，20 到 26 度。外層要好穿脫，不要穿整套雪裝逛百貨',[S('PTT 遊記',U.ptt_snowfes)]],
+ ['結冰路面幾乎人人滑過。套在鞋上的冰爪兩百多台幣就有用',[S('PTT 遊記',U.ptt_gear)]],
+ ['雪地走路比地圖估的慢三到五成。天也黑得早，戶外行程排上午',[S('PTT 遊記',U.ptt_gear)]],
+ ['大雪時 JR、高速公路、巴士團會一起出狀況。2025/12 和 2026/1 底各有一次 JR 大量停駛',[S('日文遊記',U.trav_cancel),S('新聞影片',U.yt_news)]],
+ ['纜車遇強風就停。天狗山、函館山、TOMAMU 都有人到場才知道',[S('PTT 遊記',U.ptt_hyoto),S('Dcard 遊記',U.dcard_tomamu)]],
+ ['巴士團回到札幌常超過 19:30。中間沒時間吃正餐，身上帶零食',[S('PTT 討論串',U.ptt_tour)]],
+ ['冰濤祭和小樽雪燈的會場都很冷。有人遇到體感零下 15 度',[S('Dcard 遊記',U.dcard_otaru),S('しょうじきらり',U.yt_local)]],
+ ['動物園和水族館有休園日。企鵝散步也可能取消，出發前查官網',[S('PrettyLittleVanity',U.yt_vanity),S('綸 6Journal',U.yt_lunTour)]]
+];
+const PICKS={
+ add:[
+  ['洞爺湖住一晚。影片 5 組人全部過夜，遊記裡住過的都推',[S('Dcard 遊記',U.dcard_nonokaze)]],
+  ['小樽從南小樽站逛到運河。傍晚從小樽站回來。只待 40 分鐘的人後悔了',[S('PTT 遊記',U.ptt_gear)]],
+  ['每個郊外日配一個室內備案。AOAO SAPPORO、北海道大学総合博物館、赤れんが庁舎、サッポロビール博物館',[S('日文遊記',U.trav_cancel)]],
+  ['熱門餐廳先抽號碼牌再去逛。另外備一家能訂位的，成吉思汗 大黒屋 可以線上訂位',[S('波妞食境秀',U.yt_ponyo)]],
+  ['市區那天加北海道大学或北海道神宮。神宮和白い恋人パーク在同一條地鐵線上',[S('吉田社長',U.yt_yoshida)]]
+ ],
+ skip:[
+  ['星野 TOMAMU 住一晚。貴、遠、看天氣，不滑雪的活動下午四點左右就結束',[S('Dcard 遊記',U.dcard_tomamu),S('PrettyLittleVanity',U.yt_vanity)]],
+  ['函館。單程近 4 小時，從札幌當天來回的人還遇到函館山纜車停駛',[S('PTT 遊記',U.ptt_hyoto)]],
+  ['定山溪。冬天溫泉街沒什麼店開，已經有洞爺湖溫泉就不必再排',[S('PTT 討論串',U.ptt_jozan)]],
+  ['登別。和洞爺湖擇一就好',[S('i Maggie',U.yt_maggie)]],
+  ['專程去時計台。15 支影片沒有人排，順路拍照就好']
+ ],
+ care:[
+  ['旭山動物園加美瑛的一日團。最多人加，評價卻兩極。動物園只停 90 到 110 分鐘，青い池冬天一片白，大雪天 20:30 以後才回到札幌',[S('PTT 遊記',U.ptt_zoo),S('PTT 討論串',U.ptt_tour)]],
+  ['冰濤祭後面留一天可以補。2026/1/31 札幌出發的巴士團因高速公路封閉當天取消',[S('日文遊記',U.trav_cancel)]],
+  ['回程那天留緩衝。有人回程班機晚了 3 小時多，隔天凌晨才到桃園',[S('魔法米奇',U.yt_mickey)]],
+  ['雪祭那週貴 2 到 3 倍。機票和住宿都是，餐廳和飯店大廳也擠',[S('PTT 遊記',U.ptt_snowfes)]],
+  ['兩座纜車很少人排。藻岩山 35 份裡 2 份，有珠山 1 份。出門前看官網的運行狀況',[S('PTT 遊記',U.ptt_toya)]]
+ ]
+};
+const SOURCES=[
+ ['YT','波妞食境秀　8 天 7 夜，函館進、洞爺湖住一晚、札幌出',U.yt_ponyo,'飯店優缺點和票價寫得細。聯盟連結多'],
+ ['YT','宇慶　7 天 6 夜逐日行程',U.yt_uching,'札幌 3 晚、小樽 2 晚、千歲 1 晚'],
+ ['YT','老辣妹　札幌、旭山美瑛、小樽',U.yt_lala,'店家清單最完整。有訂房網站贊助'],
+ ['YT','綸 6Journal　5 天 4 夜，含旭川一日團',U.yt_lun,'2025/12 出發。另有一日團心得一支'],
+ ['YT','i Maggie　6 天 5 夜帶長輩',U.yt_maggie,'登別住一晚再回札幌'],
+ ['YT','旅玩家 ZZ　8 天只玩札幌和小樽',U.yt_zz,'小樽住 2 晚'],
+ ['YT','R榮　4 天札幌加小樽',U.yt_rong,'2026/2/10 到 2/13，遇到雪祭'],
+ ['YT','心甜 Christy　札幌、小樽，接著去洞爺湖',U.yt_christy,'2026/1 出發，共 2 集'],
+ ['YT','Slow Down Travel 減速旅行　11 天只靠電車、巴士和飯店接駁',U.yt_slow,'3 月出發'],
+ ['YT','Sol Life　10 天，札幌、小樽、旭川、美瑛、富良野',U.yt_sol,'英文。2025/2 出發'],
+ ['YT','吉田社長 Japan TV　札幌市區 10 個點',U.yt_yoshida,'有文字版'],
+ ['YT','Irene麻糬　一天走定山溪、頭大佛、冰濤祭',U.yt_irene,'2025/2/22，跟一日團'],
+ ['YT','MAL 出走日記　住支笏湖邊看冰濤祭',U.yt_mal,'2 天 1 夜'],
+ ['YT','应小文　洞爺湖萬世閣，含札幌站接駁車',U.yt_wen,'3 天 2 晚'],
+ ['YT','魔法米奇　回程遇暴風雪延誤',U.yt_mickey,'2025/12 出發'],
+ ['PTT','9 天，冰濤祭實際到場',U.ptt_hyoto,'2025/2/14 到 2/22。去支笏湖那天租車'],
+ ['PTT','10 天，洞爺湖住一晚加有珠山和遊覽船',U.ptt_toya,'2024/12 出發，JR 周遊券'],
+ ['PTT','5 天全程札幌和小樽，裝備清單',U.ptt_gear,'2025/12 出發'],
+ ['PTT','9 天，雪祭期間的價格和人潮',U.ptt_snowfes,'2026/2/4 到 2/12'],
+ ['PTT','旭山加青池一日團的逐站時間',U.ptt_zoo,'2025/11 出發'],
+ ['PTT','一日團遇大雪延誤的討論串',U.ptt_tour,'2026/1'],
+ ['PTT','JR 小樽到機場全線停駛時怎麼辦',U.ptt_jr,'2025/3/19 現場回報'],
+ ['Dcard','洞爺湖 乃の風 兩次實住',U.dcard_nonokaze,'2025/2 和 2026/1'],
+ ['Dcard','TOMAMU 哪些會跑空',U.dcard_tomamu,'2024/12 出發'],
+ ['Dcard','小樽雪あかりの路的傍晚到夜間',U.dcard_otaru,'2026/2 出發'],
+ ['日文','冰濤祭巴士團當天取消的經過',U.trav_cancel,'4travel，2026/1/31']
+];
+
+/*DATA-END*/
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+const srcLink=s=>s?` <a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)} ↗</a>`:'';
+
+/* ---------- motion preference（和 index.html 共用同一個設定） ---------- */
+const root=document.documentElement,mBtn=$('#motionBtn');
+const mq=window.matchMedia?matchMedia('(prefers-reduced-motion: reduce)'):{matches:false};
+let userMotion=store('hk27-motion');
+function applyMotion(){const reduce=userMotion?userMotion==='reduce':mq.matches;root.dataset.motion=reduce?'reduce':'full';mBtn.setAttribute('aria-pressed',reduce?'true':'false')}
+mBtn.addEventListener('click',()=>{userMotion=root.dataset.motion==='reduce'?'full':'reduce';store('hk27-motion',userMotion);applyMotion()});
+applyMotion();
+const reduced=()=>root.dataset.motion==='reduce';
+
+/* ---------- state ---------- */
+const qById={};Q.forEach(q=>{qById[q.id]=q});
+const optOf=(q,id)=>q.o.find(o=>o[0]===id);
+const flag=(q,id,k)=>{const o=optOf(q,id);return !!(o&&o[3]&&o[3][k])};
+function sanitize(d){
+  const a={},n={};
+  if(d&&d.a&&typeof d.a==='object')for(const q of Q){const v=d.a[q.id];if(Array.isArray(v)){const ok=[...new Set(v.filter(x=>typeof x==='string'&&optOf(q,x)))];if(ok.length)a[q.id]=q.multi?ok:ok.slice(0,1)}}
+  if(d&&d.n&&typeof d.n==='object')for(const q of Q){const m=d.n[q.id];if(typeof m==='string'&&m.trim())n[q.id]=m.trim().slice(0,60)}
+  return{name:String(d&&d.name||'').trim().slice(0,20),a,n};
+}
+let st={name:'',a:{},n:{}};
+try{st=sanitize(JSON.parse(store('hk27-decide')||'null'))}catch(e){}
+function save(){store('hk27-decide',JSON.stringify(st))}
+const answered=()=>Q.filter(q=>st.a[q.id]).length;
+
+/* ---------- questions ---------- */
+function renderQ(){
+  let html='',last='';
+  for(const q of Q){
+    if(q.g!==last){last=q.g;html+=`<h3 class="grp">${esc(q.g)}</h3>`}
+    const sel=st.a[q.id]||[];
+    html+=`<article class="q${sel.length?' done':''}" id="q-${q.id}" data-q="${q.id}">
+      <div class="q-hd"><h4>${esc(q.t)}</h4><span class="kind">${q.multi?'可複選':'選一個'}</span></div>
+      <p class="why">${esc(q.why)}</p>
+      <div class="opts" role="group" aria-label="${esc(q.t)}">${q.o.map(o=>`<button type="button" class="opt" data-o="${esc(o[0])}" aria-pressed="${sel.includes(o[0])}"><span>${esc(o[1])}</span>${o[2]?`<small>${esc(o[2])}</small>`:''}</button>`).join('')}</div>
+      ${q.extra?`<div class="extra" data-x="${esc(q.extra)}"></div>`:''}
+      ${q.sug?`<p class="sug"><b>建議</b>${esc(q.sug)}</p>`:''}
+      ${q.facts&&q.facts.length?`<details class="facts"><summary>查到的資料（${q.facts.length}）</summary><ul>${q.facts.map(f=>`<li>${esc(f[0])}${srcLink(f[1])}</li>`).join('')}</ul></details>`:''}
+      <label class="memo"><span>${esc(q.memo||'補充（可不填）')}</span><input type="text" maxlength="60" data-memo="${esc(q.id)}" value="${esc(st.n[q.id]||'')}" autocomplete="off"></label>
+    </article>`;
+  }
+  $('#qWrap').innerHTML=html;
+  document.querySelectorAll('.extra').forEach(x=>{if(x.dataset.x==='plan')renderPlan(x,7);else if(x.dataset.x==='cost')renderCost(x)});
+}
+function paintQ(qid,popId){
+  const box=document.getElementById('q-'+qid);if(!box)return;
+  const sel=st.a[qid]||[];
+  box.classList.toggle('done',sel.length>0);
+  box.querySelectorAll('.opt').forEach(b=>{const on=sel.includes(b.dataset.o);b.setAttribute('aria-pressed',on);
+    if(on&&b.dataset.o===popId&&!reduced()){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}});
+}
+$('#qWrap').addEventListener('click',e=>{
+  const pt=e.target.closest('[data-plan]');
+  if(pt){renderPlan(pt.closest('.extra'),+pt.dataset.plan);return}
+  const b=e.target.closest('.opt');if(!b)return;
+  const qid=b.closest('.q').dataset.q,q=qById[qid],oid=b.dataset.o;
+  let sel=(st.a[qid]||[]).slice();
+  if(sel.includes(oid))sel=sel.filter(x=>x!==oid);
+  else if(!q.multi||flag(q,oid,'solo'))sel=[oid];
+  else sel=sel.filter(x=>!flag(q,x,'solo')).concat(oid);
+  if(sel.length)st.a[qid]=sel;else delete st.a[qid];
+  save();paintQ(qid,oid);progress();renderBoard();
+  if(q.extra==='plan'&&PLAN[oid]){const x=b.closest('.q').querySelector('.extra');if(x)renderPlan(x,+oid)}
+});
+$('#qWrap').addEventListener('input',e=>{
+  const id=e.target.dataset.memo;if(!id)return;
+  const v=e.target.value.trim().slice(0,60);
+  if(v)st.n[id]=v;else delete st.n[id];
+  save();
+});
+$('#qWrap').addEventListener('change',e=>{if(e.target.dataset.memo)renderBoard()});
+
+function renderPlan(box,n){
+  const days=PLAN[n]||[];
+  box.innerHTML=`<div class="tabs" role="group" aria-label="預覽幾天的版本"><span class="lab">預覽</span>${Object.keys(PLAN).map(k=>`<button type="button" class="tab" data-plan="${k}" aria-pressed="${+k===n}">${k} 天版</button>`).join('')}</div>
+   <ol class="plan">${days.map((d,i)=>`<li><time>D${i+1}</time><div>${esc(d[0])}<small>${esc(d[1])}</small></div></li>`).join('')}</ol>`;
+}
+function renderCost(box){
+  box.innerHTML=`<div class="cost">${COST.map(r=>`<div class="cr${r[3]?' sum':''}"><span>${esc(r[0])}</span><span class="n">${esc(r[1])}</span>${r[2]?`<small>${esc(r[2])}</small>`:''}</div>`).join('')}</div>`;
+}
+function progress(){
+  const a=answered(),n=Q.length;
+  $('#heroCount').textContent=`${a} / ${n}`;
+  $('#dockTxt').textContent=a===n&&n?`${n} 題都答完了`:`已回答 ${a} / ${n} 題`;
+  $('#dockBar').style.width=(n?a/n*100:0)+'%';
+}
+
+/* ---------- send ---------- */
+const who=$('#who');who.value=st.name;
+who.addEventListener('input',()=>{st.name=who.value.trim().slice(0,20);save()});
+who.addEventListener('change',renderBoard);
+const labels=(q,ids)=>ids.map(id=>optOf(q,id)[1]);
+function lines(d){return Q.filter(q=>d.a[q.id]).map((q,i)=>`${i+1}. ${q.t} → ${labels(q,d.a[q.id]).join('、')}${d.n[q.id]?`（${d.n[q.id]}）`:''}`)}
+function bodyText(withLines){
+  const json=JSON.stringify({v:1,name:st.name,a:st.a,n:st.n,t:new Date().toISOString()});
+  return `回答的人 ${st.name}\n\n${withLines?lines(st).join('\n')+'\n\n':''}<!-- hk27-answers v1 以下由網站產生，請不要手動修改 -->\n\`\`\`json\n${json}\n\`\`\`\n`;
+}
+function issueURL(){
+  const base=`https://github.com/${REPO}/issues/new?title=${encodeURIComponent(TAG+' '+st.name)}&body=`;
+  let u=base+encodeURIComponent(bodyText(true));
+  if(u.length>7000)u=base+encodeURIComponent(bodyText(false));
+  return u.length>7600?null:u;
+}
+function say(t,bad){const m=$('#sendMsg');m.textContent=t;m.classList.toggle('bad',!!bad)}
+function ready(){
+  if(!answered()){say('還沒選任何選項，先回上面點幾題。',true);return false}
+  if(!st.name){say('先填名字，對照表才知道這是誰的回答。',true);who.focus();return false}
+  return true;
+}
+async function copyText(t){
+  try{await navigator.clipboard.writeText(t);return true}catch(e){}
+  try{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();return ok}catch(e){return false}
+}
+$('#toGh').addEventListener('click',async()=>{
+  if(!ready())return;
+  const u=issueURL();
+  if(u){window.open(u,'_blank','noopener');say('已開啟 GitHub。在那一頁按 Create 就送出了，回來按「重新讀取」可以看對照。');return}
+  const ok=await copyText(bodyText(true));
+  window.open(`https://github.com/${REPO}/issues/new?title=${encodeURIComponent(TAG+' '+st.name)}`,'_blank','noopener');
+  say(ok?'內容比較長，已經幫你複製好了。在 GitHub 那一頁貼上再按 Create。':'內容太長，請改用「複製文字」。',!ok);
+});
+$('#copyBtn').addEventListener('click',async()=>{
+  if(!ready())return;
+  const ok=await copyText(`【北海道問題包】${st.name} 的回答\n`+lines(st).join('\n'));
+  say(ok?'已複製，貼到聊天室或 GitHub 都可以。':'這個瀏覽器不讓網頁複製，請手動選取文字。',!ok);
+});
+
+/* ---------- board ---------- */
+let remote=[],rState='idle';
+function parseAnswer(body){
+  if(typeof body!=='string')return null;
+  const m=body.match(/```json\s*([\s\S]*?)```/);if(!m)return null;
+  try{const d=JSON.parse(m[1]);if(!d||d.v!==1)return null;const s=sanitize(d);return Object.keys(s.a).length?s:null}catch(e){return null}
+}
+async function loadBoard(){
+  rState='loading';renderBoard();
+  try{
+    const r=await fetch(`https://api.github.com/repos/${REPO}/issues?state=all&per_page=100&sort=created&direction=desc`,{headers:{Accept:'application/vnd.github+json'}});
+    if(!r.ok)throw new Error('http '+r.status);
+    const list=await r.json(),seen=new Set(),out=[];
+    for(const it of list){
+      if(!it||it.pull_request||typeof it.title!=='string'||it.title.indexOf(TAG)!==0)continue;
+      if(['OWNER','COLLABORATOR','MEMBER'].indexOf(it.author_association)<0)continue;
+      const login=it.user&&it.user.login;if(!login||seen.has(login))continue;
+      const d=parseAnswer(it.body);if(!d)continue;
+      seen.add(login);out.push({who:d.name||login,a:d.a,n:d.n,url:String(it.html_url||'')});
+    }
+    remote=out;rState='ok';
+  }catch(e){rState='fail'}
+  renderBoard();
+}
+const key=d=>JSON.stringify(Q.map(q=>(d.a[q.id]||[]).slice().sort()));
+function people(){
+  const ps=remote.map(r=>({who:r.who,a:r.a,n:r.n,url:r.url}));
+  if(Object.keys(st.a).length&&!ps.some(p=>key(p)===key(st)))ps.push({who:(st.name||'你')+'（草稿）',a:st.a,n:st.n,draft:true});
+  return ps;
+}
+function judge(q,ps){
+  const got=ps.filter(p=>p.a[q.id]);
+  if(got.length<2)return{s:'wait',common:[]};
+  if(q.union)return{s:'ok',common:[],label:'合併'};
+  const firm=got.filter(p=>!p.a[q.id].some(id=>flag(q,id,'any')));
+  if(firm.length<2)return{s:'ok',common:firm.length?firm[0].a[q.id]:[]};
+  const common=firm[0].a[q.id].filter(id=>firm.every(p=>p.a[q.id].includes(id)));
+  return{s:common.length?'ok':'diff',common};
+}
+function renderBoard(){
+  const ps=people(),sum=$('#boardSum'),box=$('#boardList');
+  const note=rState==='loading'?'<div class="empty">正在讀取 GitHub 上的回答。</div>':rState==='fail'?`<div class="alert">現在讀不到 GitHub 上的回答，可能是短時間內讀取太多次，過幾分鐘再按「重新讀取」。也可以直接看 <a href="https://github.com/${REPO}/issues" target="_blank" rel="noopener">Issue 列表 ↗</a></div>`:'';
+  if(!ps.length){sum.innerHTML='';box.innerHTML=note||'<div class="empty">還沒有人回答。先在上面點選項，這裡會馬上出現你的草稿，送出後對方也看得到。</div>';return}
+  const cnt={ok:0,diff:0,wait:0};let rows='';
+  for(const q of Q){
+    const j=judge(q,ps);cnt[j.s]++;
+    if(!ps.some(p=>p.a[q.id]))continue;
+    rows+=`<div class="cmp ${j.s}"><div class="cmp-hd"><b>${esc(q.t)}</b><span class="pill ${j.s==='ok'?'ok':j.s==='diff'?'risk':'wait'}"><i></i>${j.s==='ok'?(j.label||'一致'):j.s==='diff'?'要討論':'等另一人'}</span></div><dl>${ps.map(p=>`<div class="who"><dt title="${esc(p.who)}">${esc(p.who)}</dt><dd>${p.a[q.id]?p.a[q.id].map(id=>`<span class="mini${j.common.includes(id)?' on':''}">${esc(optOf(q,id)[1])}</span>`).join(''):'<span class="note">還沒選</span>'}${p.n[q.id]?`<em>${esc(p.n[q.id])}</em>`:''}</dd></div>`).join('')}</dl></div>`;
+  }
+  const sent=remote.length;
+  sum.innerHTML=`<span class="pill ok"><i></i>一致 ${cnt.ok} 題</span><span class="pill risk"><i></i>要討論 ${cnt.diff} 題</span><span class="pill wait"><i></i>等回答 ${cnt.wait} 題</span><span class="pill wait"><i></i>已送出 ${sent} 人</span>`;
+  box.innerHTML=note+rows;
+}
+$('#reload').addEventListener('click',loadBoard);
+
+/* ---------- checks ---------- */
+const ST={risk:'要注意',wait:'還沒公布',ok:'已確認'};
+let chkF='all';
+function renderChecks(){
+  const cnt={all:CHECKS.length,risk:0,wait:0,ok:0};CHECKS.forEach(c=>{cnt[c.s]++});
+  $('#checkFilter').innerHTML=[['all','全部'],['risk',ST.risk],['wait',ST.wait],['ok',ST.ok]].map(f=>`<button type="button" class="tab" data-f="${f[0]}" aria-pressed="${chkF===f[0]}">${f[1]}<span class="cnt">${cnt[f[0]]}</span></button>`).join('');
+  const list=CHECKS.filter(c=>chkF==='all'||c.s===chkF);
+  let html='',last='';
+  for(const c of list){
+    if(c.a!==last){last=c.a;html+=`<h3 class="area">${esc(c.a)}</h3>`}
+    html+=`<details class="chk ${c.s}"><summary><span class="dot" aria-hidden="true"></span><span><span class="nm">${esc(c.n)}<span>${ST[c.s]}</span></span><span class="pt">${esc(c.p)}</span></span></summary><div class="body">${c.d&&c.d.length?`<ul>${c.d.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${c.u?`<p style="margin:8px 0 0">來源${srcLink(S(c.src||'官方頁面',c.u))}</p>`:''}</div></details>`;
+  }
+  $('#checkList').innerHTML=html||'<div class="empty">這個分類目前沒有項目。</div>';
+  $('#checkNote').textContent=`查詢日 ${CHECKED}，出發前兩週再對一次官方公告`;
+}
+$('#checkFilter').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;chkF=b.dataset.f;renderChecks()});
+
+/* ---------- others ---------- */
+function renderOthers(){
+  $('#othersNote').textContent=OTHERS_NOTE;
+  const li=x=>{const k=x[0].indexOf('。'),lead=k>0?x[0].slice(0,k):x[0],rest=k>0?x[0].slice(k+1):'';return `<li><b>${esc(lead)}</b>${rest?`<span class="rs">${esc(rest)}</span>`:''}${(x[1]||[]).map(srcLink).join('')}</li>`};
+  const max=Math.max(1,...SPOTS.map(s=>s[1]));
+  const pick=(k,color,title)=>PICKS[k].length?`<div class="card pk"><h3><span class="sw" style="background:${color}"></span>${title}</h3><ul>${PICKS[k].map(li).join('')}</ul></div>`:'';
+  $('#othersWrap').innerHTML=
+   (OTHERS_HOW?`<p class="how">${esc(OTHERS_HOW)}</p>`:'')+
+   (SPOTS.length?`<h3 class="sub">最多人去的地方（${SPOT_TOTAL} 份裡有幾份去了，藍色是現有行程已經排的）</h3><div class="bars">${SPOTS.map(s=>`<div class="barrow${s[2]?' have':''}"><span>${esc(s[0])}</span><span class="tr"><i style="width:${s[1]/max*100}%"></i></span><span class="v">${s[1]}</span></div>`).join('')}</div>`:'')+
+   `<h3 class="sub">篩選後的建議</h3><div class="grid three">${pick('add','var(--c-ok)','值得加')}${pick('skip','var(--line)','可以略過')}${pick('care','var(--c-food)','要小心')}</div>`+
+   (PATTERNS.length?`<details class="facts fold"><summary>大家怎麼排（${PATTERNS.length}）</summary><ul class="pts">${PATTERNS.map(li).join('')}</ul></details>`:'')+
+   (TIPS.length?`<details class="facts fold"><summary>很多人都提醒的事（${TIPS.length}）</summary><ul class="pts">${TIPS.map(li).join('')}</ul></details>`:'')+
+   (SOURCES.length?`<details class="facts fold"><summary>參考的影片和遊記（${SOURCES.length}）</summary><div class="srcs">${SOURCES.map(s=>`<a class="lk" href="${esc(s[2])}" target="_blank" rel="noopener"><span class="lang${s[0]==='YT'?' yt':''}">${esc(s[0])}</span><span class="t">${esc(s[1])}${s[3]?`<small>${esc(s[3])}</small>`:''}</span><span class="arrow">↗</span></a>`).join('')}</div></details>`:'');
+}
+
+/* ---------- init ---------- */
+renderQ();progress();renderChecks();renderOthers();
+$('#foot').innerHTML=`<div>資料查詢日 ${CHECKED}。營業時間、票價、活動日期和班次都可能變動，出發前請以官方公告為準。票價是查詢當下的價格，不是報價。</div>`;
+renderBoard();loadBoard();
+})();
+</script>
+</body>
+</html>
