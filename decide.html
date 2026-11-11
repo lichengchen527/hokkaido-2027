@@ -190,6 +190,12 @@ section{padding-block:30px 6px}
 .chk .body ul{margin:0;padding-left:16px}
 .chk .body li{margin:3px 0}
 .chk .body a{font-size:12.5px}
+.chk.no .dot,.chk.unk .dot{background:var(--line)}
+.chk.unk .nm span{color:var(--mute)}
+.chk.self .dot{background:var(--c-sight)}
+.chk.self .nm span{color:var(--c-sight)}
+.chk.no .nm span{color:var(--mute)}
+.chk .nm em.fit{font:500 12px var(--f-body);color:var(--mute);font-style:normal}
 
 /* others */
 .bars{display:grid;gap:7px}
@@ -234,7 +240,7 @@ footer{padding-block:34px 20px;color:var(--mute);font-size:12.5px}
 <header class="bar">
   <div class="wrap">
     <nav class="nav" aria-label="頁內導覽">
-      <a href="#ask">要決定的事</a><a href="#board">兩人對照</a><a href="#check">跑空檢查</a><a href="#others">別人怎麼玩</a><a class="back" href="index.html">回行程</a>
+      <a href="#ask">要決定的事</a><a href="#board">兩人對照</a><a href="#check">跑空檢查</a><a href="#more">其他地點</a><a href="#prep">準備事項</a><a href="#others">別人怎麼玩</a><a class="back" href="index.html">回行程</a>
     </nav>
     <button class="motion" id="motionBtn" type="button" aria-pressed="false"><span class="dot"></span>減少動態</button>
   </div>
@@ -282,6 +288,18 @@ footer{padding-block:34px 20px;color:var(--mute);font-size:12.5px}
   <div id="checkList"></div>
 </div></section>
 
+<section id="more"><div class="wrap">
+  <div class="sh"><h2>其他地點</h2><span class="note" id="moreNote"></span></div>
+  <p class="how" id="moreHow"></p>
+  <div class="tabs" id="moreFilter" role="group" aria-label="依放在哪一天篩選"></div>
+  <div id="moreList"></div>
+</div></section>
+
+<section id="prep"><div class="wrap">
+  <div class="sh"><h2>準備事項</h2><span class="note" id="prepNote"></span></div>
+  <div id="prepList"></div>
+</div></section>
+
 <section id="others"><div class="wrap">
   <div class="sh"><h2>別人怎麼玩</h2><span class="note" id="othersNote"></span></div>
   <div id="othersWrap"></div>
@@ -311,7 +329,7 @@ footer{padding-block:34px 20px;color:var(--mute);font-size:12.5px}
    ===================================================================== */
 const REPO='lichengchen527/hokkaido-2027';
 const TAG='[問題包回答]';
-const CHECKED='2026/11/10';
+const CHECKED='2026/11/10–11/11';
 const S=(t,u)=>({t,u});
 
 /*DATA-START*/
@@ -411,7 +429,42 @@ const U={
   ptt_otaru:'https://www.ptt.cc/bbs/Japan_Travel/M.1764661987.A.EB6.html',
   ptt_closed:'https://www.ptt.cc/bbs/Japan_Travel/M.1766732424.A.997.html',
   ptt_jozan:'https://www.ptt.cc/bbs/Japan_Travel/M.1764234358.A.839.html',
-  bp_plan:'https://www.backpackers.com.tw/forum/showthread.php?t=10626706'
+  bp_plan:'https://www.backpackers.com.tw/forum/showthread.php?t=10626706',
+  zooMaru:'https://www.city.sapporo.jp/zoo/info/kaienzikan-kyuenbi/20210311.html',
+  siaf:'https://www.sapporo.travel/news/siaf2027/',
+  beerMuseum:'https://www.sapporobeer.jp/brewery/s_museum/',
+  hokudai:'https://www.museum.hokudai.ac.jp/outline/open/',
+  tokeidai:'https://sapporoshi-tokeidai.jp/',
+  t38:'https://www.jr-tower.com/t38/',
+  kaitaku:'https://www.kaitaku.or.jp/userguide/',
+  okurayama:'https://www.city.sapporo.jp/sports/sisetsu/institution/jump/okura.html',
+  moerenuma:'https://www.visit-hokkaido.jp/spot/detail_10024.html',
+  upopoyHours:'https://ainu-upopoy.go.jp/guide/hours/',
+  upopoySvc:'https://ainu-upopoy.go.jp/guide/service/',
+  noboribetsu:'https://noboribetsu-spa.jp/spot/spot0034/',
+  escon:'https://www.hkdballpark.com/',
+  otaruAq:'https://otaru-aq.jp/guide/openningtime/',
+  tengu:'https://tenguyama.ckk.chuo-bus.co.jp/hours-and-fees/',
+  ptt_tengu:'https://www.ptt.cc/bbs/Japan_Travel/M.1742107176.A.AA1.html',
+  nikka:'https://www.nikka.com/distilleries/yoichi/',
+  nikkaGlt:'https://www.gltjp.com/ja/directory/item/14685/',
+  asahikawaFes:'https://www.visit-hokkaido.jp/event/detail_11013.html',
+  sounkyo:'https://www.visit-hokkaido.jp/event/detail_11005.html',
+  customsRefund:'https://www.customs.go.jp/kaigairyoko/taxrefund.htm',
+  jtaRefund:'https://www.mlit.go.jp/kankocho/tax-free/page01_000001_00019.html',
+  departTax:'https://www.nta.go.jp/publication/pamph/kansetsu/kanko/index.htm',
+  mofaVisa:'https://www.mofa.go.jp/mofaj/toko/visa/tanki/novisa.html',
+  toyaTax:'https://hokkaido-shukuhakuzei.pref.hokkaido.lg.jp/poster/JPG/tax_B2pos_C-07toyako.jpg',
+  subwayTouch:'https://www.city.sapporo.jp/st/josyaken/topics/202504.html',
+  donanTouch:'https://www.donanbus.co.jp/topics/2026-11-10%ef%bd%9e-%e3%82%af%e3%83%ac%e3%82%b8%e3%83%83%e3%83%88%e3%82%ab%e3%83%bc%e3%83%89%e7%ad%89%e3%81%ae%e3%82%bf%e3%83%83%e3%83%81%e6%b1%ba%e6%b8%88%e3%81%ab%e3%82%88%e3%82%8b%e4%b9%97%e8%bb%8a/',
+  kitaca:'https://www.jrhokkaido.co.jp/kitaca/02area.html',
+  sapporoMove:'https://www.sapporo.travel/info/about/sapporo',
+  railpass:'https://www.jrhokkaido.co.jp/global/english/ticket/railpass/index.html',
+  jrUnkyu:'https://jr-group.jp/unkyu/',
+  teikanNotice:'https://teikan.chuo-bus.co.jp/en/category/notice',
+  marukoma:'https://www.marukoma.co.jp/news/2026blue-liner/',
+  scootFee:'https://cdn.flyscoot.com/prod/docs/default-source/fee-chart/scoot_fees_chart_tw.pdf',
+  goods:'https://www.sapporo.travel/spot/feature/winter-trip-to-sapporo-goods/'
 };
 
 const Q=[
@@ -448,6 +501,7 @@ const Q=[
    ['找不到資料支持「出發前一個月會出清」。KAYAK 同航線過去 12 個月的資料是，3 週前訂比最後 2 週內訂便宜約 13%',S('KAYAK',U.kayak)],
    ['2 月是這條航線全年最貴的月份，平均來回 NT$22,982',S('KAYAK',U.kayak)],
    ['2/15 到 2/21 的現價 NT$16,065，Google 的常見區間是 NT$16,000 到 33,000，已經在最底。過去一個月一路跌到接近 60 天低點',S('Google Flights',GF('2027-02-15','2027-02-21'))],
+   ['11/11 再查一次。2/12 去 2/18 回的酷航 NT$14,410、星宇 NT$19,564，和前一天差不到 50 元',S('Google Flights',GF('2027-02-12','2027-02-18'))],
    ['傳統航空的線上旅展快結束了。長榮到 11/15，華航到 11/21，星宇 85 折到 11/23',S('TVBS 報導',U.tvbs)],
    ['燃油附加費 11/8 起連續第 4 次調漲',S('TVBS 報導',U.tvbs)],
    ['還是想等的話，先在 Google Flights 對想要的日期開「追蹤票價」']
@@ -483,7 +537,7 @@ const Q=[
    ['虎航加購 20 kg 來回約 NT$2,004（訂票時一起買）。訂完才加或到機場才買會更貴',S('虎航費用表',U.tiger)],
    ['虎航同一筆訂位可以共用額度。兩人合買一個 30 kg，每人來回約 NT$1,413',S('虎航費用表',U.tiger)],
    ['抽樣 10 組日期，有 5 組是虎航加完托運後比華航或星宇還貴'],
-   ['酷航的加購價這次沒查到（官方費率表是 PDF）。訂票頁面會顯示']
+   ['酷航的加購價這次沒查到（官方費率表是 PDF，瀏覽器讀不出文字）。訂票頁面會顯示',S('酷航費率表',U.scootFee)]
   ]},
 
  {id:'budget',g:'預算',t:'每人預算上限大概多少？',extra:'cost',
@@ -511,7 +565,7 @@ const Q=[
    ['含早晚餐每人 ¥16,600（洞爺 湖畔亭）到 ¥34,300（乃の風リゾート），2/18 週四的報價',S('Booking 報價',U.bookingToya)],
    ['乃の風 和 湖畔亭 有札幌站北口的接駁車，13:30 發、隔天 10:00 前後回，用官網訂房免費，要預約',S('乃の風リゾート',U.nonokaze)],
    ['影片裡去洞爺湖的 5 組人全部住一晚，沒有人當天來回。遊記裡住過的人都說值得，當天來回的人只逛了溫泉街',S('PTT 遊記',U.ptt_toya)],
-   ['洞爺站到溫泉街的巴士只收現金（影片說明欄寫的，還沒向巴士公司確認）',S('波妞食境秀',U.yt_ponyo)]
+   ['洞爺湖的巴士都是道南バス，2026/11/10 起全路線可以刷信用卡感應（實證實驗）。Suica 和 Kitaca 公告沒寫，帶一點現金備用',S('道南バス',U.donanTouch)]
   ]},
 
  {id:'shikotsu',g:'行程',t:'冰濤祭怎麼去？',
@@ -520,6 +574,7 @@ const Q=[
   sug:'BLUE LINER。白天的藍冰和 16:30 以後的點燈都看得到，回程班次也多。',
   facts:[
    ['BLUE LINER 已開放預約。JR 千歳駅東口上車，單程 ¥2,000、約 45 分。前一天 20:30 截止，不能改班，取消不退',S('札幌観光バス',U.liner)],
+   ['BLUE LINER 也從新千歳空港國內線 1F 發車，比千歳駅早 20 分。下午搭 14:00（千歳駅 14:20）約 15:05 到，白天的冰和 16:30 點燈都看得到',S('札幌観光バス',U.liner)],
    ['BLUE LINER 回程有 18:15、18:30、19:30、20:30。20:30 那班只到千歳駅',S('札幌観光バス',U.liner)],
    ['中央バス的巴士團 13:20 札幌駅發、19:51 回來，¥5,500 不含門票。會場只停 16:00 到 17:45，白天的藍冰只看得到半小時',S('北海道中央バス',U.teikan)],
    ['會場沒有室內休息室。遊客中心 16:30 關，店家多半 17:00 收，日歸溫泉 15:00 結束而且週二三休',S('休暇村支笏湖',U.qkamura)],
@@ -539,6 +594,22 @@ const Q=[
    ['TOMAMU 的 JR 單程 ¥5,880、約 1 小時 45 分。氷の教会 只到 2/14，2 月看到霧冰的機率 48%（上一季）',S('星野リゾート トマム',U.frost)],
    ['定山溪搭かっぱライナー單程 ¥1,700，日歸溫泉 ¥1,200 到 1,500。雪灯路的神社會場只限住宿客，回程末班 17:15',S('定山渓観光協会',U.yukitouro)],
    ['函館離札幌單程約 3 小時 50 分、¥9,770。函館機場有虎航和星宇直飛桃園，可以新千歲進、函館出（2027 的班表還沒公布）',S('函館空港',U.hkdAir)]
+  ]},
+
+ {id:'spots',g:'行程',t:'順路還想加哪些地點？',multi:true,union:true,
+  why:'這幾個不用多排一天，塞進現有的某一天。選項下的小字是放在哪天。',
+  o:[['upopoy','ウポポイ','D3 去洞爺湖途中，アイヌ文化博物館'],['maruyama','円山動物園','D2，冬天照開'],['walk','北大、時計台、赤れんが','D5 或 D7 上午，札幌站走路就到'],['beer','サッポロビール博物館','D7 白天，或下午落地的 D1'],['aq','おたる水族館','D6，企鵝雪中散步，只開到 2/23'],['tengu','天狗山夜景','D6 傍晚'],['nikka','余市 ニッカ','D6 上午或自選日，要預約'],['none','都不加','照現在的排',{solo:true}]],
+  sug:'整趟挑 2 到 3 個就好，每加一個那天就多 2 到 3 小時。最容易加的是円山動物園，D2 把円山散步換掉。小樽那天水族館和余市選一個，天狗山看體力和風再決定。ウポポイ 只適合 D3 搭 JR 的人，有珠山要移到 D4 上午，回程改搭 12:50 的巴士。',
+  facts:[
+   ['日期地雷。2/12 出發的 D6 是 2/17 週三，小樽兩家壽司名店休。2/13 出發的 D3 是 2/15 週一，ウポポイ 休。2/19 以後出發，D6 碰到水族館休館'],
+   ['ウポポイ。札幌 08:43 出發，白老停約 3 小時，約 14:45 到洞爺湖溫泉。每人 ¥7,800，比 JR 直達多 ¥710，比旅館的免費接駁多 ¥7,800',S('ウポポイ',U.upopoyHours)],
+   ['ウポポイ 週一休（2/15 休，2/22 例外有開），2/27 到 3/8 連休。行李箱不能帶進去，入口大型置物櫃只有 20 格，¥500，只收現金',S('ウポポイ',U.upopoySvc)],
+   ['有珠山改到 D4 上午的話，溫泉街 10:15 發車、昭和新山 11:45 回，再接 12:50 的直達巴士回札幌（¥3,700）。旅館 10:00 前後的免費接駁車就搭不到。巴士時刻是纜車官網 2026/3 的版本',S('有珠山ロープウェイ',U.usu)],
+   ['円山動物園 冬期 9:30 到 16:00，最後入園 15:30，¥800。每月第 2、第 4 個週三休，照規則 2027 年 2 月是 2/10 和 2/24',S('円山動物園',U.zooMaru)],
+   ['おたる水族館 冬季只開到 2/23，門票 ¥1,300。企鵝雪中散步 11:30、12:40、13:30、14:40',S('おたる水族館',U.otaruAq)],
+   ['天狗山纜車冬季營運到 3/28，下山末班 20:00，來回 ¥2,000。強風會停駛',S('天狗山ロープウェイ',U.tengu)],
+   ['ニッカ 導覽和試飲免費，要預約，什麼時候開放預約沒查到。小樽到余市 JR 24 分、¥470',S('ニッカ',U.nikka)],
+   ['小樽那天再加兩個就會超過 11 小時。每個地點的時間、休館日和交通，下面「其他地點」有完整整理']
   ]},
 
  {id:'pace',g:'行程',t:'行程要排多滿？',
@@ -575,7 +646,7 @@ const Q=[
    ['札幌グランドホテル 是指定方案每人一碗小的鮭魚卵丼，不是吃到飽。センチュリーロイヤルホテル 已經閉館',S('札幌グランドホテル',U.grand)],
    ['ベッセルイン 2/16 的雙床房一晚 ¥20,300，同一天最便宜的飯店是 ¥13,500',S('Booking 報價',U.booking)],
    ['多數方案標示可以免費取消，先訂起來等機票是可行的。最便宜的方案常常不能退，下訂前看清楚',S('Booking 報價',U.booking)],
-   ['住宿稅另計。札幌每人每晚 ¥300，洞爺湖 ¥400，兩人 6 晚約 ¥3,800',S('札幌市',U.tax)]
+   ['住宿稅另計。札幌和洞爺湖都是每人每晚 ¥300，每人房價 ¥20,000 以上時札幌 ¥400、洞爺湖 ¥700。兩人 6 晚約 ¥3,600 到 4,400',S('札幌市',U.tax)]
   ]},
 
  {id:'area',g:'住宿',t:'札幌想住哪一區？',
@@ -612,28 +683,28 @@ const COST=[
  ['交通','NT$4,300–5,700','機場來回、洞爺湖、小樽、支笏湖、市區。洞爺湖搭直達巴士比較省'],
  ['門票','NT$2,200','冰濤祭、白い恋人パーク、藻岩山、有珠山、遊覽船、AOAO 全去'],
  ['餐費','NT$6,300–10,100','估算，每天 ¥5,000 到 8,000，共 6 天'],
- ['住宿稅','NT$400','札幌每人每晚 ¥300，洞爺湖 ¥400'],
+ ['住宿稅','NT$380–460','每人每晚 ¥300。洞爺湖每人房價 ¥20,000 以上是 ¥700'],
  ['7 天合計','NT$40,200–57,700','每人，不含購物',true]
 ];
 
 const CHECKS=[
  {a:'支笏湖',n:'千歳・支笏湖氷濤まつり',s:'ok',p:'1/30（六）到 2/23（二），10:00–20:00，16:30 點燈',d:['門票平日 ¥1,000，週六日和假日 ¥3,000。2/11 和 2/23 算假日','現場買，沒有預售票','會場內沒有室內休息室'],u:U.hyoto,src:'千歳観光連盟'},
- {a:'支笏湖',n:'氷濤 BLUE LINER',s:'ok',p:'已開放預約。前一天 20:30 截止，不能改班，取消不退',d:['JR 千歳駅東口 7 番上車，13:20 或 14:20 發，約 45 分，單程 ¥2,000','回程 18:15、18:30、19:30、20:30。20:30 只到千歳駅，要回機場的末班是 19:30','觀光協會頁面列的班次比較少，以預約系統顯示的為準'],u:U.liner,src:'札幌観光バス'},
+ {a:'支笏湖',n:'氷濤 BLUE LINER',s:'ok',p:'已開放預約。前一天 20:30 截止，不能改班，取消不退',d:['新千歳空港國內線 1F 也能上車，比千歳駅早 20 分發車','JR 千歳駅東口 7 番上車，下午有 13:20、14:20、14:50、15:20、16:50 發，約 45 分，單程 ¥2,000','回程 18:15、18:30、19:30、20:30。20:30 只到千歳駅，要回機場的末班是 19:30','觀光協會頁面列的班次比較少，以預約系統顯示的為準'],u:U.liner,src:'札幌観光バス'},
  {a:'支笏湖',n:'點燈後沒有室內可待',s:'risk',p:'遊客中心 16:30 關，店家多半 17:00 收。回程班次先訂好',d:['休暇村日歸溫泉 15:00 結束，週二三公休','遊客中心冬季週二休','晚餐回千歲或札幌再吃'],u:U.qkamura,src:'休暇村支笏湖'},
  {a:'支笏湖',n:'札幌出發的冰濤祭巴士團',s:'ok',p:'13:20 札幌駅發、19:51 回，¥5,500 不含門票。會場只停 16:00–17:45',d:['前一天 18:00 前沒人預約就停駛','塞車時停留時間會再縮短','2026/1/31 曾因高速公路封閉當天取消（遊記）'],u:U.teikan,src:'北海道中央バス'},
- {a:'支笏湖',n:'路線巴士 空4',s:'wait',p:'冬季時刻官方頁讀不到。回程末班據說 17:45，只當去程或備案',d:['不用預約，新千歳空港和千歳駅前上車','12/11 改冬季時刻後要再查一次'],u:'https://www.chuo-bus.co.jp/',src:'北海道中央バス'},
+ {a:'支笏湖',n:'路線巴士 空4',s:'wait',p:'冬季時刻官方頁讀不到。回程末班據說 17:45，只當去程或備案',d:['支笏湖的丸駒温泉旅館在上一季（2026 會期）公告，會期中路線巴士非常擠，建議搭 BLUE LINER','不用預約，新千歳空港和千歳駅前上車','12/11 改冬季時刻後要再查一次'],u:'https://www.chuo-bus.co.jp/',src:'北海道中央バス'},
 
- {a:'洞爺湖',n:'有珠山ロープウェイ',s:'risk',p:'每年冬天停駛檢修。2026 是 1/12–1/31，2027 還沒公布',d:['2025 是 1/11–1/24。這兩年的 2 月都有開','公告都在開始前幾天才貼，出發前一週看官方部落格','來回 ¥2,000。12 月的下山末班是 16:00，1 月以後的時刻還沒出'],u:U.usu,src:'有珠山ロープウェイ'},
+ {a:'洞爺湖',n:'有珠山ロープウェイ',s:'risk',p:'每年冬天停駛檢修。2026 是 1/12–1/31，2027 還沒公布',d:['11/11 再查，官網月曆只排到 12 月，12 月沒有停駛日','2025 是 1/11–1/24。這兩年的 2 月都有開','公告都在開始前幾天才貼，出發前一週看官方部落格','來回 ¥2,000。12 月的下山末班是 16:00，1 月以後的時刻還沒出'],u:U.usu,src:'有珠山ロープウェイ'},
  {a:'洞爺湖',n:'溫泉街到昭和新山的巴士',s:'risk',p:'班次很少，回程末班 15:45，錯過只能叫計程車',d:['去程 9:15、10:15、11:20、12:50、13:25 等（官方 FAQ 2026/3 版）','¥400。1 到 2 月是否同樣時刻還沒確認','纜車售票處可以免費代叫計程車'],u:U.usuBus,src:'有珠山ロープウェイ'},
  {a:'洞爺湖',n:'札幌到洞爺湖的交通',s:'ok',p:'北斗 08:43 發，接 11:00 巴士，約 2 小時 40 分、¥7,090。直達巴士 ¥3,700 要預約',d:['北斗 ¥6,690，全車指定席。洞爺駅到溫泉街巴士 ¥400、約 20 分','直達巴士札幌駅前 7:40、11:30、14:10、16:10 發，約 2 小時 45 分','直達巴士回程 7:10、9:50、12:50、17:10 發。發車 2 小時前截止預約','時刻是現行版本，出發前再對一次'],u:U.donan,src:'道南バス'},
  {a:'洞爺湖',n:'洞爺湖汽船',s:'ok',p:'冬期 9:00–16:00 每小時整點一班，約 45 分，¥1,800。冬天不能上中島',d:['強風大雪當天可能停航，官網會公告'],u:U.kisen,src:'洞爺湖汽船'},
- {a:'洞爺湖',n:'洞爺湖温泉冬花火',s:'wait',p:'2027 還沒公布。2026 是 2/3–2/12 每晚 20:30',d:['2 月中旬以後去，照去年的日期就看不到'],u:U.toyaFw,src:'洞爺湖温泉観光協会'},
+ {a:'洞爺湖',n:'洞爺湖温泉冬花火',s:'wait',p:'2027 還沒公布。2026 是 2/3–2/12 每晚 20:30',d:['11/11 再查還是沒有公布','2 月中旬以後去，照去年的日期就看不到'],u:U.toyaFw,src:'洞爺湖温泉観光協会'},
  {a:'洞爺湖',n:'イルミネーショントンネル',s:'ok',p:'到 2027/4/27，每晚 17:00–22:00，哪天去都有',d:['在溫泉街中心的にぎわい広場'],u:U.toyaEv,src:'洞爺湖温泉観光協会'},
 
  {a:'小樽',n:'壽司店週三公休',s:'risk',p:'政寿司本店每週三休，伊勢鮨每週三加第 1 到 3 個週二休。小樽不要排週三',d:['午餐 14:30 最後點餐，15:00 到 17:00 是空班','兩家都建議先訂位'],u:U.masa,src:'おたる政寿司'},
  {a:'小樽',n:'堺町通的店 18:00 關',s:'ok',p:'LeTAO、オルゴール堂、かま栄 都開到 18:00，咖啡廳 17:30 最後點餐',d:['南小樽駅下車往運河方向逛，最後從小樽駅回札幌，不用走回頭路'],u:U.letao,src:'LeTAO'},
  {a:'小樽',n:'運河的燈',s:'ok',p:'瓦斯燈每天日落到 24:00，倉庫打燈到 22:30',d:['藍色燈飾「青の運河」只到 1/31','雪あかりの路 2/6–2/13，時間還沒公布（2026 是 17:00–21:00）'],u:U.gas,src:'小樽市'},
- {a:'小樽',n:'小樽運河クルーズ',s:'wait',p:'冬天照開，白天 ¥1,800、夜間 ¥2,000。2 月時刻表還沒出',d:['強風大雪會停航，當天早上 9:00 左右更新'],u:U.cruise,src:'小樽運河クルーズ'},
+ {a:'小樽',n:'小樽運河クルーズ',s:'wait',p:'冬天照開，白天 ¥1,800、夜間 ¥2,000。2 月時刻表還沒出',d:['網路預約的日曆只開到 1/31，2 月還不能訂','強風大雪會停航，當天早上 9:00 左右更新'],u:U.cruise,src:'小樽運河クルーズ'},
  {a:'小樽',n:'JR 札幌到小樽',s:'ok',p:'單程 ¥800，快速約 34 到 41 分。不分車種同價',d:['指定席 uシート 加 ¥1,000'],u:'https://www.jrhokkaido.co.jp/airport/',src:'JR 北海道'},
 
  {a:'札幌',n:'さっぽろ雪まつり',s:'ok',p:'2/4–2/11。雪像 2/12 早上就拆',d:['2 月中下旬的大通公園沒有雪像也沒有燈飾','還亮著的燈飾在札幌駅南口、アカプラ、南一条通（到 3/14）'],u:U.snow,src:'雪祭官網'},
@@ -740,6 +811,64 @@ const SOURCES=[
  ['Dcard','小樽雪あかりの路的傍晚到夜間',U.dcard_otaru,'2026/2 出發'],
  ['日文','冰濤祭巴士團當天取消的經過',U.trav_cancel,'4travel，2026/1/31']
 ];
+
+const MORE_DAYS=[
+ ['d1','D1 落地當晚','D1'],
+ ['d2','D2 札幌市區','D2'],
+ ['d3','D3 去洞爺湖途中','D3'],
+ ['am','D5 或 D7 上午','D5 或 D7'],
+ ['d6','D6 小樽順路','D6'],
+ ['free','8 天版的自選日','自選日'],
+ ['no','查過但不建議','不建議']
+];
+const MORE=[
+ {g:'d1',n:'JRタワー展望室 T38',s:'risk',t:'45 分',p:'札幌站上方 38 樓的夜景，酷航 17:00 落地也來得及。官網暫停中，只有公告寫照常營業',d:['公告寫 10:00–22:00，票價沒查到','D2 已經有藻岩山夜景，兩個挑一個就好'],u:U.t38,src:'JRタワー'},
+ {g:'d2',n:'円山動物園',s:'ok',t:'2.5 到 3 小時',p:'冬期 9:30–16:00，最後入園 15:30，¥800',d:['每月第 2、第 4 個週三休。照規則 2027 年 2 月是 2/10 和 2/24，月曆還沒出','地鐵円山公園站走約 15 分，或轉 JR バス 約 5 分','D2 把円山散步換成動物園最順。白い恋人パーク 12:00 前離開，動物園 13:30 前入園才有 2.5 小時','北海道神宮 和動物園都是 16:00 關，兩個都去的話動物園只剩 2 小時左右'],u:U.zooMaru,src:'円山動物園'},
+ {g:'d3',n:'ウポポイ',s:'risk',t:'2 到 3 小時',p:'國立アイヌ民族博物館和園區，冬天以室內展示和表演為主，就在去洞爺湖的路上',d:['冬季 9:00–17:00，週一休（2/15 休，2/22 例外有開），2/27 到 3/8 連休。2/13 出發的話 D3 剛好是 2/15','大人 ¥1,200，官網買 ¥1,000','札幌 08:43 北斗 到白老 09:41，13:16 再搭北斗，約 14:45 到洞爺湖溫泉。每人 ¥7,800，比 JR 直達多 ¥710，比旅館的免費接駁多 ¥7,800','白老駅走約 10 分。行李箱不能帶進去，入口大型置物櫃只有 20 格，¥500 只收現金，放不下的交給服務台也是 ¥500','D3 就上不了有珠山。改到 D4 上午做得到，但旅館 10:00 前後的回程接駁搭不到，要改訂 12:50 的直達巴士（¥3,700）。早上還能先搭 9:00 的遊覽船'],u:U.upopoyHours,src:'ウポポイ',u2:U.upopoySvc,src2:'ウポポイ 置物櫃'},
+ {g:'am',n:'北大、時計台、赤れんが',s:'ok',t:'2 小時',p:'札幌站走路 10 分鐘內，可以串成一段散步。酷航 17:00 落地的話 D1 已經關門',d:['北海道大学総合博物館 免費，10:00–17:00，週一休（2/15、2/22）','札幌市時計台 ¥350，8:45–17:10','赤れんが庁舎 2025 年整修後重開，要收費，金額沒查到','D5 上午散步完，中午 JR 到千歳駅接 BLUE LINER 也行'],u:U.hokudai,src:'北大総合博物館',u2:U.tokeidai,src2:'時計台'},
+ {g:'am',n:'サッポロビール博物館',s:'ok',t:'1 到 2 小時',p:'2026/7 整修後重開。自由參觀 ¥1,000，11:00–18:00（最後入館 17:30），不用預約',d:['D7 白天去，或下午落地的 D1','試飲導覽 ¥2,000、約 55 分、日語，要上網預約','旁邊的サッポロビール園 可以吃成吉思汗烤肉','在東區，和 D2 的方向相反。地鐵東区役所前站走約 10 分'],u:U.beerMuseum,src:'サッポロビール博物館'},
+ {g:'am',n:'札幌国際芸術祭 SIAF2027',s:'ok',t:'順路',p:'1/16 到 2/21，札幌市內 11 個會場。2 月中旬去剛好在會期內',d:['大通駅 到 バスセンター前駅 之間的地下通道 500m美術館 是會場之一，展到 3/24','各會場的時間和票價這輪沒查到'],u:U.siaf,src:'札幌市觀光網'},
+ {g:'am',n:'新千歳空港（D5）',s:'ok',t:'2 到 3 小時',p:'BLUE LINER 也從機場國內線 1F 發車，比千歳駅早 20 分。搭 14:00 那班約 15:05 到會場',d:['札幌到機場 JR 約 40 分、¥1,230','預約時上車地點選新千歳空港。國際線航廈沒有停','搭酷航的話 D7 本來就會在機場吃逛，D5 上午改在市區散步也可以'],u:U.liner,src:'札幌観光バス'},
+ {g:'d6',n:'おたる水族館',s:'risk',t:'2 小時',p:'冬天有企鵝在雪地走，一天 4 場。冬季只開到 2/23',d:['10:00–16:00，入館到 15:30，門票 ¥1,300','企鵝雪中散步 11:30、12:40、13:30、14:40，各約 10 分','小樽駅前 3 番のりば 搭巴士約 20 到 25 分、¥240，班次沒查到','2/19 以後出發的 7 天版，小樽那天會碰到休館'],u:U.otaruAq,src:'おたる水族館'},
+ {g:'d6',n:'小樽天狗山ロープウェイ',s:'risk',t:'1 到 1.5 小時',p:'上山看小樽夜景。冬季營運到 3/28，上山末班 19:48、下山末班 20:00，來回 ¥2,000',d:['小樽駅前搭巴士上山，含巴士來回的套票 ¥2,450。巴士班次和回程末班沒查到','排在小樽那天最後，17:15 前離開堺町通比較保險','強風會停駛。2025 年 2 月有人遇到上午停、下午才恢復','加上水族館或余市，這天會超過 11 小時'],u:U.tengu,src:'天狗山ロープウェイ',u2:U.ptt_tengu,src2:'PTT 遊記'},
+ {g:'d6',n:'ニッカウヰスキー余市蒸溜所',s:'wait',t:'2 到 2.5 小時',p:'免費導覽加試飲，要預約。小樽到余市 JR 24 分、¥470',d:['導覽 9:30–14:30 每半小時一場，12:30 沒有，約 70 分（場次來自第三方網站）','什麼時候開放預約沒查到','例如札幌 08:41 出發，小樽轉車，10:00 到余市（¥1,380），10:30 導覽，余市 12:37 回小樽 13:01。訂不到 10:30 就整段往後挪','JR 小樽到余市約 1 小時 1 班','和水族館二選一。兩個都想去，就把余市和水族館排到 8 天版的自選日'],u:U.nikka,src:'ニッカ',u2:U.nikkaGlt,src2:'GLT'},
+ {g:'free',n:'北海道開拓の村',s:'risk',t:'2 到 3 小時',p:'雪中的明治建築野外博物館。馬拉雪橇只有週六日和假日',d:['9:00–16:30，最後入場 16:00，週一休','大人 ¥1,000，和北海道博物館的共通券 ¥1,400','地鐵新さっぽろ站轉 JR バス 約 20 分，單程約 1 小時'],u:U.kaitaku,src:'開拓の村'},
+ {g:'no',n:'登別（D3 途中）',s:'risk',p:'帶行李繞過去總共 7 小時以上、每人 ¥8,670，和洞爺湖同樣是溫泉加火山',d:['當天來回的話 JR 加巴士來回 ¥10,680'],u:U.noboribetsu,src:'登別観光協会'},
+ {g:'no',n:'旭川冬まつり',s:'ok',p:'2027 是 2/6 到 2/11，2/12 以後出發就看不到',d:[],u:U.asahikawaFes,src:'北海道觀光網'},
+ {g:'no',n:'層雲峡氷瀑まつり',s:'ok',p:'1/23 到 3/7，但平日 17:00 才開。不開車當天來回要 22:56 才回到札幌',d:['來回 JR 加巴士約 ¥15,700'],u:U.sounkyo,src:'北海道觀光網'},
+ {g:'no',n:'大倉山ジャンプ競技場',s:'wait',p:'官網緊急維護中，2 月有比賽的日子吊椅停不停也查不到',d:[],u:U.okurayama,src:'札幌市'},
+ {g:'no',n:'モエレ沼公園',s:'wait',p:'冬天只有雪景，從地鐵站還要轉巴士約 25 分',d:[],u:U.moerenuma,src:'北海道觀光網'},
+ {g:'no',n:'エスコンフィールド北海道',s:'wait',p:'2 月是職棒季外，官網營業時間只公布到 11 月',d:[],u:U.escon,src:'Fビレッジ'}
+];
+const MORE_NOTE='查詢日 2026/11/11';
+const MORE_HOW='現有行程沒排、但 2 月去得了的地方，依照適合放在哪一天分組。搭酷航 17:00 落地的話，D1 只剩晚上。';
+const PREP_WHEN=[
+ ['now','現在就能處理'],
+ ['open','之後才開放預約'],
+ ['before','出發前一週'],
+ ['trip','到了當地'],
+ ['shop','購物和退稅']
+];
+const PREP=[
+ {g:'now',n:'出國稅漲到 ¥3,000',s:'ok',p:'2026/7/1 起從日本出境每人 ¥3,000，航空公司會加在票價裡收',d:['比機票時看含稅總價就好'],u:U.departTax,src:'國稅庁'},
+ {g:'now',n:'住宿稅要另外付',s:'risk',p:'札幌和洞爺湖都是每人每晚 ¥300。每人房價 ¥20,000 以上，札幌變 ¥400、洞爺湖變 ¥700',d:['2026/4/1 起北海道、札幌市、洞爺湖町一起開徵，通常在入住時付','含早晚餐的方案怎麼算要問旅館','問題包原本寫洞爺湖 ¥400，已經改正'],u:U.tax,src:'札幌市',u2:U.toyaTax,src2:'洞爺湖町的海報'},
+ {g:'now',n:'JR Pass 不用買',s:'ok',p:'照現在的路線，JR 原價合計 ¥19,520。Hokkaido Rail Pass 5 天 ¥22,000、7 天 ¥28,000，都比較貴',d:['札幌・登別 Area Pass 4 天 ¥10,000，含機場、小樽、千歳，但不含洞爺','路線改成要去旭川或富良野時再重算'],u:U.railpass,src:'JR 北海道'},
+ {g:'open',n:'中央バス 冬季觀光巴士',s:'unk',p:'冰濤祭團（1/30 到 2/23，¥5,500）和旭山動物園團（到 3/31，¥6,900）已有 2027 日期，2 月場次哪天開放預約沒查到',d:['上一季是 12 月下旬發新路線的公告，12 月下旬起看一次官網'],u:U.teikan,src:'冰濤祭團',u2:U.zooBus,src2:'旭山動物園團'},
+ {g:'open',n:'小樽運河クルーズ',s:'wait',p:'網路預約的日曆只開到 1/31，2 月還不能訂',d:['出航前 1 小時都還能上網買，不一定要先訂'],u:U.cruise,src:'小樽運河クルーズ'},
+ {g:'open',n:'白い恋人パーク 畫餅乾',s:'ok',p:'2 月的場次 1/1 起開放網路預約',d:[],u:U.koibito,src:'白い恋人パーク'},
+ {g:'open',n:'ニッカ 余市蒸溜所導覽',s:'unk',p:'要預約，什麼時候開放沒查到',d:[],u:U.nikka,src:'ニッカ'},
+ {g:'open',n:'道南バス 札幌到洞爺湖直達車',s:'unk',p:'要預約，什麼時候開放沒查到。發車 2 小時前截止',d:[],u:U.donan,src:'道南バス'},
+ {g:'before',n:'Visit Japan Web',s:'ok',p:'照常要填，存好入境和海關的 QR code。新千歲出境時也能用它線上辦退稅確認',d:['台灣護照仍然免簽，條件是護照上有身分證字號','JESTA（入境前的電子審查）目標 2028 年度才上路'],u:U.mofaVisa,src:'外務省',u2:U.customsRefund,src2:'日本海關'},
+ {g:'before',n:'再看一次最新公告',s:'wait',p:'有珠山纜車 1 到 2 月的停駛日、洞爺湖冬花火、運河遊船 2 月時刻還沒公布。空4 冬季時刻沒查到',d:['出發前一週各看一次官網，上面的跑空檢查有連結'],u:U.usu,src:'有珠山ロープウェイ'},
+ {g:'before',n:'旅遊不便險',s:'self',p:'大雪停飛不算少見。投保前確認延誤幾小時起賠、天候取消算不算、要附什麼證明',d:['也要確認天氣預報出來之後才投保還賠不賠'],u:''},
+ {g:'before',n:'鞋用冰爪',s:'ok',p:'札幌的鞋店、便利商店、藥妝店都買得到，約 ¥1,000。遊記說只套一腳也有用',d:['市中心路邊的砂箱裡有防滑砂，可以自己拿來撒'],u:U.goods,src:'札幌市觀光網',u2:U.ptt_gear,src2:'PTT 遊記'},
+ {g:'trip',n:'地下鐵可以直接刷信用卡',s:'ok',p:'札幌地下鐵全線可以刷信用卡感應，一天自動封頂，平日 ¥830、週末假日 ¥520',d:['一張卡只能一個人用，兩個人要各刷各的','同一張卡、同一支手機刷一整天才會累計','市電和巴士不算在封頂裡','目前還是實證實驗，出發前再確認'],u:U.subwayTouch,src:'札幌市交通局'},
+ {g:'trip',n:'Suica 能用的範圍',s:'ok',p:'JR 札幌到小樽、新千歳空港、千歳都能刷 Suica。札幌到洞爺不行，要另外買票',d:['地下鐵、市電、中央バス 也能用 Suica 或 Kitaca','JR 北海道能刷 IC 卡的是札幌近郊，跨區不能刷'],u:U.kitaca,src:'JR 北海道',u2:U.sapporoMove,src2:'札幌市觀光網'},
+ {g:'trip',n:'道南バス 可以刷卡',s:'ok',p:'2026/11/10 起全路線可以刷信用卡感應，洞爺湖的巴士都是這家',d:['屬於實證實驗，結束日沒讀到','Suica、Kitaca 公告沒寫，帶一點現金備用','札幌到洞爺湖的直達車算不算在內還沒確認'],u:U.donanTouch,src:'道南バス'},
+ {g:'trip',n:'JR 停駛可以全額退',s:'ok',p:'因為停駛不搭了，車票和特急券全額退，不收手續費',d:['搭到一半停駛，沒搭的區間退費，也可以免費坐回出發站','特急晚到 2 小時以上，特急券全額退'],u:U.jrUnkyu,src:'JR 集團'},
+ {g:'shop',n:'免稅改成退稅',s:'risk',p:'2026/11/1 起，店裡先付含稅價，出境時海關確認後才退',d:['同一家店同一天未稅滿 ¥5,000 才能退，購物時要帶護照','在日本吃掉、用掉的不退。同一張單只要一件沒帶出境，整張都不退，自用和帶回的要分開結帳','出境時在新千歲國際線先到退稅機刷護照，綠燈就完成，紅燈要拿商品給海關看','退款方式每家店不同，可能退到信用卡、銀行帳戶或給現金'],u:U.customsRefund,src:'日本海關',u2:U.jtaRefund,src2:'觀光廳'}
+];
+const PREP_NOTE='查詢日 2026/11/11';
 
 /*DATA-END*/
 
@@ -931,7 +1060,7 @@ function renderBoard(){
 $('#reload').addEventListener('click',loadBoard);
 
 /* ---------- checks ---------- */
-const ST={risk:'要注意',wait:'還沒公布',ok:'已確認'};
+const ST={risk:'要注意',wait:'還沒公布',ok:'已確認',no:'不建議',unk:'沒查到',self:'自己確認'};
 let chkF='all';
 function renderChecks(){
   const cnt={all:CHECKS.length,risk:0,wait:0,ok:0};CHECKS.forEach(c=>{cnt[c.s]++});
@@ -946,6 +1075,35 @@ function renderChecks(){
   $('#checkNote').textContent=`查詢日 ${CHECKED}，出發前兩週再對一次官方公告`;
 }
 $('#checkFilter').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;chkF=b.dataset.f;renderChecks()});
+
+/* ---------- more places ---------- */
+let moreF='all';
+const card=(c,sub)=>`<details class="chk ${c.s}"><summary><span class="dot" aria-hidden="true"></span><span><span class="nm">${esc(c.n)}<span>${ST[c.s]}</span>${sub?`<em class="fit">${esc(sub)}</em>`:''}</span><span class="pt">${esc(c.p)}</span></span></summary><div class="body">${c.d&&c.d.length?`<ul>${c.d.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${c.u?`<p style="margin:8px 0 0">來源${srcLink(S(c.src||'官方頁面',c.u))}${c.u2?srcLink(S(c.src2||'遊記',c.u2)):''}</p>`:''}</div></details>`;
+function renderMore(){
+  if(!MORE.length){$('#more').hidden=true;return}
+  const cnt={all:MORE.length};MORE_DAYS.forEach(d=>{cnt[d[0]]=MORE.filter(m=>m.g===d[0]).length});
+  $('#moreFilter').innerHTML=[['all','全部'],...MORE_DAYS.filter(d=>cnt[d[0]])].map(f=>`<button type="button" class="tab" data-f="${f[0]}" aria-pressed="${moreF===f[0]}">${esc(f[2]||f[1])}<span class="cnt">${cnt[f[0]]}</span></button>`).join('');
+  let html='';
+  for(const d of MORE_DAYS){
+    if(moreF!=='all'&&moreF!==d[0])continue;
+    const list=MORE.filter(m=>m.g===d[0]);if(!list.length)continue;
+    html+=`<h3 class="area">${esc(d[1])}</h3>`+list.map(m=>card(m.g==='no'?Object.assign({},m,{s:'no'}):m,m.t)).join('');
+  }
+  $('#moreList').innerHTML=html;
+  $('#moreNote').textContent=MORE_NOTE;$('#moreHow').textContent=MORE_HOW;
+}
+$('#moreFilter').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;moreF=b.dataset.f;renderMore()});
+
+/* ---------- prep ---------- */
+function renderPrep(){
+  if(!PREP.length){$('#prep').hidden=true;return}
+  let html='';
+  for(const w of PREP_WHEN){
+    const list=PREP.filter(x=>x.g===w[0]);if(!list.length)continue;
+    html+=`<h3 class="area">${esc(w[1])}</h3>`+list.map(x=>card(x)).join('');
+  }
+  $('#prepList').innerHTML=html;$('#prepNote').textContent=PREP_NOTE;
+}
 
 /* ---------- others ---------- */
 function renderOthers(){
@@ -963,7 +1121,7 @@ function renderOthers(){
 }
 
 /* ---------- init ---------- */
-renderQ();progress();renderChecks();renderOthers();
+renderQ();progress();renderChecks();renderMore();renderPrep();renderOthers();
 $('#foot').innerHTML=`<div>資料查詢日 ${CHECKED}。營業時間、票價、活動日期和班次都可能變動，出發前請以官方公告為準。票價是查詢當下的價格，不是報價。</div>`;
 renderBoard();loadBoard();
 })();
